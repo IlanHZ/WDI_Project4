@@ -44,7 +44,8 @@ function facebook(req, res) {
               facebookId: profile.id,
               name: profile.name,
               picture: profile.picture.data.url,
-              email: profile.email
+              email: profile.email,
+              
             });
           }
           // either way, we save the user record
