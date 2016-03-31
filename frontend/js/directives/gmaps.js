@@ -76,7 +76,6 @@ function InitMap() {
         console.log("Marker number:" + marker.title)
         console.log("Marker coordinate:" + marker.position )
 
-
         // Add circle overlay and bind to marker
         var circle = new google.maps.Circle({
           map: map,
@@ -85,22 +84,51 @@ function InitMap() {
         });
         circle.bindTo('center', marker, 'position');
 
-
         var myPosition = new google.maps.LatLng(13.410994034321702, 105.7763671875, 10e-7);
         console.log("my position:"+ myPosition)
 
-          // isLocationOnEdge(point:LatLng, poly:Polygon|Polyline, tolerance?:number)
-          if (google.maps.geometry.poly.isLocationOnEdge(myPosition, poly, 10-8)) {
-            console.log("MY POSITION IS IN THE RADIUS OF THE POLYLINE");
-          } else {
-            console.log("NOT IN THE RADIUS")
-          }
+        // isLocationOnEdge(point:LatLng, poly:Polygon|Polyline, tolerance?:number)
+        if (google.maps.geometry.poly.isLocationOnEdge(myPosition, poly, 10-8)) {
+          console.log("MY POSITION IS IN THE RADIUS OF THE POLYLINE");
+        } else {
+          console.log("NOT IN THE RADIUS")
+        }
+      } 
 
-        } 
+     // *** Geolocation ***
 
+      var infoWindow = new google.maps.InfoWindow({map: map});
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+
+          infoWindow.setPosition(pos);
+          infoWindow.setContent('Location found.');
+          map.setCenter(pos);
+        }, function() {
+          handleLocationError(true, infoWindow, map.getCenter());
+        });
+      } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+          infoWindow.setPosition(pos);
+          // infoWindow.setContent(browserHasGeolocation ?'Error: The Geolocation service failed.': 'Error: Your browser doesn\'t support geolocation.');
+      }
     }
   }
 }
+  
+
+
+
+
 
 
 
