@@ -2,25 +2,36 @@
 <html ng-app="mappersApp">
 <head>
   <title>Mappers</title>
+
   <!-- External Modules -->
   <script src="/js/vendor/angular/angular.min.js"></script>
   <script src="/js/vendor/angular-jwt/dist/angular-jwt.min.js"></script>
   <script src="/js/vendor/satellizer/satellizer.min.js"></script>
 
   <!-- Internal Modules -->
+  <!-- JAVASCRIPT -->
   <script src="/js/app.js"></script>
   <script src="/js/controllers/mainController.js"></script>
   <script src="/js/services/oauthKeys.js"></script>
   <script src="/js/services/token.js"></script>
-
+  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
 
- 
-
 </head>
-<body>
-  <h1>Mappers</h1>
-
+<body ng-controller="MainController as main">
+  <div class="centered">
+    <div ng-hide="main.isLoggedIn()">
+      <h1>Mappers</h1>
+      <h3>Login with Facebook</h3>
+      <button class="facebook" ng-click="main.authenticate('facebook')"><i class="fa fa-facebook-square"></i> Sign in with Facebook</button>
+    </div>
+    <div ng-show="main.isLoggedIn()">
+      <img ng-src="{{ main.currentUser.picture }}">
+      <h2>{{ main.currentUser.name }}</h2>
+      <hr>
+      <button class="logout" ng-click="main.logout()"><i class="fa fa-sign-out"></i> Logout</button>
+    </div>
+  </div>
 
 </body>
 </html>
