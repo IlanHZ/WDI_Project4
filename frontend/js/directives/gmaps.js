@@ -6,10 +6,10 @@ angular
 
 function MapController() {
   this.mapCenter = {lat: 13.736717, lng:  100.523186};
-  this.mapMarkers = [{ lat: 13.410994034321702, lng: 105.7763671875 }];
+  this.mapMarkers = [];
 
+  console.log("marker:", this.mapMarkers);
 }
-
 
 function InitMap() {
   return {
@@ -28,15 +28,15 @@ function InitMap() {
     // element is the DOM element as a jQuery object 
     link: function(scope, $element, attr) {
       if(!scope.center) throw new Error("You must provide a center for your map directive")
-
-      console.log(scope.center);
+      console.log("Scope center:", scope.center);
 
       var map = new google.maps.Map($element[0], {
         center: scope.center,
-        zoom: 10,
+        zoom: 5,
       });
-
+      
       if(scope.markers) {
+        console.log("Scope Markers:", scope.markers);
         scope.markers.forEach(function(marker) {
           new google.maps.Marker({
            position: marker.position,
@@ -45,6 +45,64 @@ function InitMap() {
           });
         });
       }
+
+      poly = new google.maps.Polyline({
+        strokeColor: '#000000',
+        strokeOpacity: 1.0,
+        strokeWeight: 3
+      });
+      console.log("POLY:", poly);
+      poly.setMap(map);
+
+      // Add a listener for the click event
+      map.addListener('click', addLatLng);
+
+      // Handles click events on a map, and adds a new point to the Polyline.
+      function addLatLng(event) {
+        console.log(event.latLng)
+        var path = poly.getPath();
+        console.log("path:" + path)
+
+        // Because path is an MVCArray, we can simply append a new coordinate
+        // and it will automatically appear.
+        path.push(event.latLng);
+
+        // Add a new marker at the new plotted point on the polyline.
+        var marker = new google.maps.Marker({
+          position: event.latLng,
+          title: '#' + path.getLength(),
+          map: map
+        });
+        console.log("Marker number:" + marker.title)
+        console.log("Marker coordinate:" + marker.position )
+
+
+        // Add circle overlay and bind to marker
+        var circle = new google.maps.Circle({
+          map: map,
+          radius: 100000,    // 10 miles in metres
+          fillColor: '#AA0000'
+        });
+        circle.bindTo('center', marker, 'position');
+
+
+        var myPosition = new google.maps.LatLng(13.410994034321702, 105.7763671875, 10e-7);
+        console.log("my position:"+ myPosition)
+
+          // isLocationOnEdge(point:LatLng, poly:Polygon|Polyline, tolerance?:number)
+          if (google.maps.geometry.poly.isLocationOnEdge(myPosition, poly, 10-8)) {
+            console.log("MY POSITION IS IN THE RADIUS OF THE POLYLINE");
+          } else {
+            console.log("NOT IN THE RADIUS")
+          }
+
+        } 
+
     }
   }
 }
+
+
+
+
+

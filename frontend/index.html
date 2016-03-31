@@ -24,7 +24,7 @@
 
 </head>
 <body ng-controller="MainController as main">
-  <div class="centered">
+  <div class="loginForm">
     <div ng-hide="main.isLoggedIn()">
       <h1>Mappers</h1>
       <h3>Login with Facebook</h3>
@@ -39,8 +39,16 @@
   </div>
 
   <section ng-controller="MapController as map">
-    <map center="map.mapCenter" markers="map.mapMarkers"></map>
+    <map center="map.mapCenter" markers="map.marker"></map>
   </section>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
