@@ -6,7 +6,10 @@ angular
 
 function MapController() {
   this.mapCenter = {lat: 13.736717, lng:  100.523186};
-  this.mapMarkers = [];
+  this.mapMarkers = [{
+    name: "Testing Position",
+    position: { lat: 13.410994034321702, lng: 105.7763671875, }
+  }]
 
   console.log("marker:", this.mapMarkers);
 }
@@ -45,7 +48,7 @@ function InitMap() {
           });
         });
       }
-
+      // create a polyline 
       poly = new google.maps.Polyline({
         strokeColor: '#000000',
         strokeOpacity: 1.0,
@@ -83,12 +86,12 @@ function InitMap() {
           fillColor: '#AA0000'
         });
         circle.bindTo('center', marker, 'position');
-
-        var myPosition = new google.maps.LatLng(13.410994034321702, 105.7763671875, 10e-7);
+        // test position
+        var myPosition = new google.maps.LatLng(13.410994034321702, 105.7763671875, 10-7);
         console.log("my position:"+ myPosition)
-
+        // check if a specific point is included in the radius of the polyline
         // isLocationOnEdge(point:LatLng, poly:Polygon|Polyline, tolerance?:number)
-        if (google.maps.geometry.poly.isLocationOnEdge(myPosition, poly, 10-8)) {
+        if (google.maps.geometry.poly.isLocationOnEdge(myPosition, poly, 10-9)) {
           console.log("MY POSITION IS IN THE RADIUS OF THE POLYLINE");
         } else {
           console.log("NOT IN THE RADIUS")
@@ -106,6 +109,8 @@ function InitMap() {
             lng: position.coords.longitude
           };
 
+          console.log(position)
+
           infoWindow.setPosition(pos);
           infoWindow.setContent('Location found.');
           map.setCenter(pos);
@@ -117,9 +122,10 @@ function InitMap() {
         handleLocationError(false, infoWindow, map.getCenter());
       }
 
+
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
           infoWindow.setPosition(pos);
-          // infoWindow.setContent(browserHasGeolocation ?'Error: The Geolocation service failed.': 'Error: Your browser doesn\'t support geolocation.');
+          infoWindow.setContent(browserHasGeolocation ?'Error: The Geolocation service failed.': 'Error: Your browser doesn\'t support geolocation.');
       }
     }
   }
