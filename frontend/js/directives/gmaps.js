@@ -4,7 +4,12 @@ angular
   .directive('map', InitMap);
 
 
+
 function MapController() {
+
+  this.events = [];
+
+
   this.mapCenter = {lat: 13.736717, lng:  100.523186};
   this.mapMarkers = [{
     name: "Testing Position",
@@ -14,7 +19,10 @@ function MapController() {
   console.log("marker:", this.mapMarkers);
 }
 
+
+
 function InitMap() {
+
   return {
     // E(element <map></map>) | A(attribute map="something") | C(class class="map") | M(comment <!-- directive: map --> )
     // Use mainly of the first two | use of element in this exemple
@@ -130,7 +138,30 @@ function InitMap() {
     }
   }
 }
-  
+
+
+
+
+  // function displayEvents() {
+  //   $.get('/events').then(function(data){
+
+  //     var events = data
+
+  //     events.forEach(function(event, idx){
+  //       setTimeout(function(){
+  //         var marker = new google.maps.Marker({
+
+  //           // parseFloat convert a string into a number
+  //           position: { lat: parseFloat(event.lat), lng: parseFloat(event.lng) },
+  //           map: map,
+  //           animation: google.maps.Animation.DROP,
+  //         });
+  //       });
+  //     });
+  //   });
+  // }
+
+
 
 
 

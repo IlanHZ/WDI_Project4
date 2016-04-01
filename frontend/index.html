@@ -7,6 +7,7 @@
   <script src="/js/vendor/angular/angular.min.js"></script>
   <script src="/js/vendor/angular-jwt/dist/angular-jwt.min.js"></script>
   <script src="/js/vendor/satellizer/satellizer.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-resource.js"></script>
 
   <!-- google map drawing and geometry library -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxM36DxD-TmmCuWMML0UXBVSirOUkF42Q&signed_in=true&libraries=drawing,geometry"></script>
@@ -40,7 +41,7 @@
       <button class="logout" ng-click="main.logout()"><i class="fa fa-sign-out"></i> Logout</button>
     </div>
 
-    <!-- <section ng-controller="EventsController as events">
+    <section ng-controller="EventsController as events">
       <div class="events">
         <h2>Events</h2> 
          <section class="createEvent">
@@ -49,9 +50,13 @@
               <input type="text" ng-model="events.newEvent.title" placeholder="Event title">
               <input type="submit" value="Create">
             </form>
+
+            <li ng-repeat="event in events.events" ng-click="events.selectEvent(event)">
+              {{ event.title }}
+            </li>
           </section>
       </div>
-    </section> -->
+    </section>
   </div>
 
   <!--   MAP -->

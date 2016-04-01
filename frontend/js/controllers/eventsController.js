@@ -2,32 +2,49 @@ angular
   .module('mappersApp')
   .controller('EventsController', EventsController);
 
-EventsController.$inject = ['Event'];
-function EventsController(Event) {
+EventsController.$inject = ['$resource'];
+function EventsController($resource) {
 
   var self = this;
 
-  // CRUD
-  this.all = Event.resource.query();
+  var Event = $resource("http://localhost:3000/events/:id", { id: '@_id' }, { update: {method: 'PUT'}});
 
-  this.createEvent = function(){
-    Event.resource.save(self.newEvent, function(res){
-    self.all.push(res);
-    });
-  };
+  // make a request to the database, query all the resources from the database, same as .all 
+  this.events = Event.query(); 
 
-  this.updateEvent = function(event){
-    Event.resource.update(event, function(res){
+  // select a specific character
+  this.selectedEvent= null;
+  this.event = Event.query();
+
+  this.selectEvent = function(event) {
+    this.selectedEvent = Event.get({ id: event._id });
+  }
+
+  // add an event
+  this.addEvent = function() {
+    Event.save(this.newEvent, function() {
+      self.events.push(self.newEvent);
     });
   }
 
-  this.deleteEvent = function(Event){
-    Event.resource.delete({ id: Event._id }, function(res){
-      self.all.filter(function( obj ) {
-        if(obj._id === Event._id) {
-          self.all.splice((self.all.indexOf(obj)), 1);
-        }
-      });
+  // delete
+  this.deleteEvent = function(event) {
+    Event.remove({ id: event._id })
+  }
+
+  // update
+  this.updateEvent = function(event) {
+    Event.update(event, function() {
+      console.log(event);
     });
   }
+
 }
+
+
+
+
+
+
+
+
