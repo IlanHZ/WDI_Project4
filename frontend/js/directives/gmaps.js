@@ -42,13 +42,15 @@ function InitMap() {
 
       // array containing all the markers related to the events
       var allEventsMarker = [];
-      
+
+      var currentInfoWindow;
+
       if(scope.markers) {
         
         scope.markers.$promise.then(function(markers) {
           console.log("Scope Markers:", markers);
 
-          markers.forEach(function(marker) {
+          markers.forEach(function(marker, event) {
 
             var latLng = new google.maps.LatLng(marker.lat, marker.lng);
 
@@ -57,6 +59,24 @@ function InitMap() {
               map: map,
               animation: google.maps.Animation.DROP,
               icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+            });
+
+            // Create an infowindow for the events markers
+            var infoWindow = new google.maps.InfoWindow({
+              position: latLng,
+              content: "<p>" + marker.title+"</p>"  
+            });
+            console.log("currentInfoWindow:", currentInfoWindow)
+            console.log("event.title:", event.title)
+
+            // on click, open the infowindow
+            marker.addListener('click', function(){
+              // if an other one is clicked, close the current one.
+              if(currentInfoWindow) currentInfoWindow.close();
+              currentInfoWindow = infoWindow;
+              infoWindow.open(map);
+              console.log(currentInfoWindow)
+
             });
 
             allEventsMarker.push(marker);
@@ -97,6 +117,7 @@ function InitMap() {
         });
         console.log("Marker number:" + marker.title)
         console.log("Marker coordinate:" + marker.position )
+
 
         // Add circle overlay and bind to marker
         var circle = new google.maps.Circle({
