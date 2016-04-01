@@ -19,11 +19,14 @@
   <script src="/js/services/oauthKeys.js"></script>
   <script src="/js/services/token.js"></script>
   <script src="/js/directives/gmaps.js"></script>
+<!--   <script src="/js/controllers/usersController.js"></script> -->
+  <script src="/js/controllers/eventsController.js"></script>
   <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body ng-controller="MainController as main">
+<!-- login/register form -->
   <div class="loginForm">
     <div ng-hide="main.isLoggedIn()">
       <h1>Mappers</h1>
@@ -36,11 +39,41 @@
       <hr>
       <button class="logout" ng-click="main.logout()"><i class="fa fa-sign-out"></i> Logout</button>
     </div>
+
+    <!-- <section ng-controller="EventsController as events">
+      <div class="events">
+        <h2>Events</h2> 
+         <section class="createEvent">
+            <h2>Create Event</h2>
+            <form ng-submit="events.createEvent(events.newEvent)">
+              <input type="text" ng-model="events.newEvent.title" placeholder="Event title">
+              <input type="submit" value="Create">
+            </form>
+          </section>
+      </div>
+    </section> -->
   </div>
 
+  <!--   MAP -->
   <section ng-controller="MapController as map">
     <map center="map.mapCenter" markers="map.mapMarkers"></map>
   </section>
+
+<!--   EVENTS -->
+<!-- <div class="events">
+  <h1>Events</h1> -->
+<!--   <section ng-controller="EventsController as events"> -->
+
+    <!-- CREATE Event -->
+<!--     <section class="createEvent">
+      <h2>Create Event</h2>
+      <form ng-submit="events.createEvent(events.newEvent); events.showAllEventsSection()">
+        <input type="text" ng-model="events.newEvent.title" placeholder="Event title">
+        <input type="submit" value="Create">
+      </form>
+    </section>
+  </section> -->
+</div>
 
 </body>
 </html>
