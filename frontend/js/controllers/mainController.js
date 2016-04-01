@@ -12,6 +12,7 @@ function MainController($auth, tokenService) {
   }
 
   this.currentUser = tokenService.getUser();
+  
 
   this.authenticate = function(provider) {
     $auth.authenticate(provider)

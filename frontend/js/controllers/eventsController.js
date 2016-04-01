@@ -2,9 +2,12 @@ angular
   .module('mappersApp')
   .controller('EventsController', EventsController);
 
-EventsController.$inject = ['$resource'];
-function EventsController($resource) {
+EventsController.$inject = ['$resource', 'tokenService'];
+function EventsController($resource, tokenService) {
 
+  this.currentUser = tokenService.getUser();
+  
+  console.log("current user:", this.currentUser)
   var self = this;
 
   var Event = $resource("http://localhost:3000/events/:id", { id: '@_id' }, { update: {method: 'PUT'}});

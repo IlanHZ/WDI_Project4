@@ -48,7 +48,7 @@
     </div>
     <div ng-show="main.isLoggedIn()">
       <img ng-src="{{ main.currentUser.picture }}">
-      <h2>{{ main.currentUser.name }}</h2>
+      <h2>{{ main.currentUser.name }}  {{ pos.lat }}</h2>
       <hr>
       <button class="logout" ng-click="main.logout()"><i class="fa fa-sign-out"></i> Logout</button>
     </div>
@@ -58,18 +58,20 @@
       <div class="eventsForm" ng-show="showEventForm=true">
         <h2>Events</h2> 
           <h2>Create Event</h2>
-          <form ng-submit="events.addEvent(events.newEvent)">
-            <input type="text" ng-model="events.newEvent.title" placeholder="Event title">
-            <input type="number" ng-model="events.newEvent.lat" placeholder="Event lat">
-            <input type="number" ng-model="events.newEvent.lng" placeholder="Event lng">
-            <input type="submit" value="Create">
-          </form>
-          <ul>
+          <div class="form-group">
+            <form ng-submit="events.addEvent(events.newEvent)">
+              <input type="text" class="form-control" ng-model="events.newEvent.title" placeholder="Event title">
+              <input type="number" class="form-control" ng-model="events.newEvent.lat" placeholder="Event lat">
+              <input type="number" class="form-control" ng-model="events.newEvent.lng" placeholder="Event lng">
+              <input type="submit" class="btn btn-default" value="Create">
+            </form>
+          </div>
+          <!-- <ul>
             <li ng-repeat="event in events.events" ng-click="events.selectEvent(event)">
               {{ event.title }} // lat:{{ event.lat }} - lng: {{ event.lng }}
               <button ng-click="event.deleteEvent(event)">Delete</button>
             </li>
-          </ul>
+          </ul> -->
       </div>
     </section>
 

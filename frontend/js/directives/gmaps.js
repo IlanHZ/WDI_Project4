@@ -55,7 +55,8 @@ function InitMap() {
             var marker = new google.maps.Marker({
               position: latLng,
               map: map,
-              animation: google.maps.Animation.DROP
+              animation: google.maps.Animation.DROP,
+              icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
             });
 
             allEventsMarker.push(marker);
@@ -91,7 +92,8 @@ function InitMap() {
         var marker = new google.maps.Marker({
           position: myTravelLine.latLng,
           title: '#' + path.getLength(),
-          map: map
+          map: map,
+          icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
         });
         console.log("Marker number:" + marker.title)
         console.log("Marker coordinate:" + marker.position )
@@ -124,7 +126,10 @@ function InitMap() {
 
      // *** Geolocation ***
 
-      var infoWindow = new google.maps.InfoWindow({map: map});
+      var myCurrentPosition = new google.maps.Marker({
+        map: map,
+        icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+      });
 
       if (navigator.geolocation) {
 
@@ -135,25 +140,26 @@ function InitMap() {
             lng: position.coords.longitude
           };
 
-          console.log(position)
+          console.log("my lat :", pos.lat)
+          console.log("my lng :", pos.lng)
 
-          infoWindow.setPosition(pos);
+          myCurrentPosition.setPosition(pos);
 
-          infoWindow.setContent('Location found.');
+          // myCurrentPosition.setContent('Location found.');
 
           map.setCenter(pos);
 
         }, function() {
-          handleLocationError(true, infoWindow, map.getCenter());
+          handleLocationError(true, myCurrentPosition, map.getCenter());
         });
       } else {
         // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
+        handleLocationError(false, myCurrentPosition, map.getCenter());
       }
 
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-          infoWindow.setPosition(pos);
-          infoWindow.setContent(browserHasGeolocation ?'Error: The Geolocation service failed.': 'Error: Your browser doesn\'t support geolocation.');
+      function handleLocationError(browserHasGeolocation, myCurrentPosition, pos) {
+          myCurrentPosition.setPosition(pos);
+          myCurrentPosition.setContent(browserHasGeolocation ?'Error: The Geolocation service failed.': 'Error: Your browser doesn\'t support geolocation.');
       }
     }
   }
