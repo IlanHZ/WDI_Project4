@@ -46,10 +46,12 @@
         <h2>Events</h2> 
          <section class="createEvent">
             <h2>Create Event</h2>
-            <form ng-submit="events.createEvent(events.newEvent)">
+            <form ng-submit="events.addEvent(events.newEvent)">
               <input type="text" ng-model="events.newEvent.title" placeholder="Event title">
               <input type="submit" value="Create">
             </form>
+
+            <p ng-show="events.selectedEvent">{{ events.selectedEvent.title }} </p>
 
             <li ng-repeat="event in events.events" ng-click="events.selectEvent(event)">
               {{ event.title }}
