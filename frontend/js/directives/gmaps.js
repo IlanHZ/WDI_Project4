@@ -20,8 +20,6 @@ function MapController($resource) {
   this.mapCenter = {lat: 13.736717, lng:  100.523186};
 }
 
-
-
 function InitMap() {
 
   return {

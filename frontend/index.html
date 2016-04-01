@@ -12,6 +12,9 @@
   <!-- google map drawing and geometry library -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxM36DxD-TmmCuWMML0UXBVSirOUkF42Q&signed_in=true&libraries=drawing,geometry"></script>
 
+  <!--   bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
 
   <!-- Internal Modules -->
   <!-- JAVASCRIPT -->
@@ -28,7 +31,16 @@
 </head>
 <body ng-controller="MainController as main">
 <!-- login/register form -->
-  <div class="loginForm">
+<div class="container">
+
+  <nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">
+      <button class="btn btn-default navbar-btn" ng-click="showLoginForm=true; showEventsForm=false">Login</button>
+      <button class="btn btn-default navbar-btn" ng-click="showEventsForm=true; showLoginForm=false">Create an Events</button>
+    </ul>
+  </nav>
+
+  <div class="loginForm" ng-show="showLoginForm">
     <div ng-hide="main.isLoggedIn()">
       <h1>Mappers</h1>
       <h3>Login with Facebook</h3>
@@ -40,50 +52,34 @@
       <hr>
       <button class="logout" ng-click="main.logout()"><i class="fa fa-sign-out"></i> Logout</button>
     </div>
+  </div>
 
     <section ng-controller="EventsController as events">
-      <div class="events">
+      <div class="eventsForm" ng-show="showEventForm=true">
         <h2>Events</h2> 
-         <section class="createEvent">
-            <h2>Create Event</h2>
-            <form ng-submit="events.addEvent(events.newEvent)">
-              <input type="text" ng-model="events.newEvent.title" placeholder="Event title">
-              <input type="number" ng-model="events.newEvent.lat" placeholder="Event lat">
-              <input type="number" ng-model="events.newEvent.lng" placeholder="Event lng">
-              <input type="submit" value="Create">
-            </form>
-
-<!--             <p ng-show="events.selectedEvent">{{ events.selectedEvent.title }} </p> -->
-
+          <h2>Create Event</h2>
+          <form ng-submit="events.addEvent(events.newEvent)">
+            <input type="text" ng-model="events.newEvent.title" placeholder="Event title">
+            <input type="number" ng-model="events.newEvent.lat" placeholder="Event lat">
+            <input type="number" ng-model="events.newEvent.lng" placeholder="Event lng">
+            <input type="submit" value="Create">
+          </form>
+          <ul>
             <li ng-repeat="event in events.events" ng-click="events.selectEvent(event)">
               {{ event.title }} // lat:{{ event.lat }} - lng: {{ event.lng }}
               <button ng-click="event.deleteEvent(event)">Delete</button>
             </li>
-          </section>
+          </ul>
       </div>
     </section>
-  </div>
+
+</div>
+
 
   <!--   MAP -->
   <section ng-controller="MapController as map">
     <map center="map.mapCenter" markers="map.mapEventMarkers"></map>
   </section>
-
-<!--   EVENTS -->
-<!-- <div class="events">
-  <h1>Events</h1> -->
-<!--   <section ng-controller="EventsController as events"> -->
-
-    <!-- CREATE Event -->
-<!--     <section class="createEvent">
-      <h2>Create Event</h2>
-      <form ng-submit="events.createEvent(events.newEvent); events.showAllEventsSection()">
-        <input type="text" ng-model="events.newEvent.title" placeholder="Event title">
-        <input type="submit" value="Create">
-      </form>
-    </section>
-  </section> -->
-</div>
 
 </body>
 </html>
