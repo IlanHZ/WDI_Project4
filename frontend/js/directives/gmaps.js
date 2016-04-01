@@ -8,7 +8,8 @@ MapController.$inject = ["$resource"]
 function MapController($resource) {
   var self = this;
   var Event = $resource("http://localhost:3000/events/:id", { id: '@_id' }, { update: {method: 'PUT'}});
-  this.mapMarkers = Event.query(); 
+  this.mapEventMarkers = Event.query(); 
+  console.log(this.mapEventMarkers)
 
   this.mapCenter = {lat: 13.736717, lng:  100.523186};
   // this.mapMarkers = [{
@@ -43,17 +44,24 @@ function InitMap() {
         center: scope.center,
         zoom: 5,
       });
+
+      var allMarkers = [];
       
       if(scope.markers) {
         
         scope.markers.$promise.then(function(markers) {
           console.log("Scope Markers:", markers);
           markers.forEach(function(marker) {
-            new google.maps.Marker({
-             position: { lat: marker.lat, lng: marker.lng },
-             map: map,
-             animation: google.maps.Animation.DROP
+
+            var latLng = new google.maps.LatLng(marker.lat, marker.lng);
+
+            var marker = new google.maps.Marker({
+              position: latLng,
+              map: map,
+              animation: google.maps.Animation.DROP
             });
+
+            allMarkers.push(marker);
           });
         });
       }
@@ -95,16 +103,21 @@ function InitMap() {
           fillColor: '#AA0000'
         });
         circle.bindTo('center', marker, 'position');
-        // test position
-        var myPosition = new google.maps.LatLng(13.410994034321702, 105.7763671875, 10-7);
-        console.log("my position:"+ myPosition)
+
+        // var eventsPosition = new google.maps.latLng()
         // check if a specific point is included in the radius of the polyline
         // isLocationOnEdge(point:LatLng, poly:Polygon|Polyline, tolerance?:number)
-        if (google.maps.geometry.poly.isLocationOnEdge(myPosition, poly, 10-9)) {
-          console.log("MY POSITION IS IN THE RADIUS OF THE POLYLINE");
-        } else {
-          console.log("NOT IN THE RADIUS")
-        }
+        console.log("marker position:", marker.position)
+        console.log(allMarkers);
+        allMarkers.forEach(function(marker) {
+          if (google.maps.geometry.poly.isLocationOnEdge(marker.getPosition(), poly, 1)) {
+            console.log("In the radius");
+            marker.setMap(map);
+          } else {
+            console.log("Out of the radius");
+            marker.setMap(null);
+          }
+        });
       } 
 
      // *** Geolocation ***

@@ -53,10 +53,11 @@
               <input type="submit" value="Create">
             </form>
 
-            <p ng-show="events.selectedEvent">{{ events.selectedEvent.title }} </p>
+<!--             <p ng-show="events.selectedEvent">{{ events.selectedEvent.title }} </p> -->
 
             <li ng-repeat="event in events.events" ng-click="events.selectEvent(event)">
               {{ event.title }} // lat:{{ event.lat }} - lng: {{ event.lng }}
+              <button ng-click="event.deleteEvent(event)">Delete</button>
             </li>
           </section>
       </div>
@@ -65,7 +66,7 @@
 
   <!--   MAP -->
   <section ng-controller="MapController as map">
-    <map center="map.mapCenter" markers="map.mapMarkers"></map>
+    <map center="map.mapCenter" markers="map.mapEventMarkers"></map>
   </section>
 
 <!--   EVENTS -->
