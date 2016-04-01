@@ -4,19 +4,17 @@ angular
   .directive('map', InitMap);
 
 
-
-function MapController() {
-
-  this.events = [];
-
+MapController.$inject = ["$resource"]
+function MapController($resource) {
+  var self = this;
+  var Event = $resource("http://localhost:3000/events/:id", { id: '@_id' }, { update: {method: 'PUT'}});
+  this.mapMarkers = Event.query(); 
 
   this.mapCenter = {lat: 13.736717, lng:  100.523186};
-  this.mapMarkers = [{
-    name: "Testing Position",
-    position: { lat: 13.410994034321702, lng: 105.7763671875, }
-  }]
-
-  console.log("marker:", this.mapMarkers);
+  // this.mapMarkers = [{
+  //   name: "Testing Position",
+  //   position: { lat: 13.410994034321702, lng: 105.7763671875, }
+  // }]
 }
 
 
@@ -47,12 +45,15 @@ function InitMap() {
       });
       
       if(scope.markers) {
-        console.log("Scope Markers:", scope.markers);
-        scope.markers.forEach(function(marker) {
-          new google.maps.Marker({
-           position: marker.position,
-           map: map,
-           animation: google.maps.Animation.DROP
+        
+        scope.markers.$promise.then(function(markers) {
+          console.log("Scope Markers:", markers);
+          markers.forEach(function(marker) {
+            new google.maps.Marker({
+             position: { lat: marker.lat, lng: marker.lng },
+             map: map,
+             animation: google.maps.Animation.DROP
+            });
           });
         });
       }
