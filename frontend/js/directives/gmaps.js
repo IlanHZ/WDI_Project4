@@ -17,7 +17,7 @@ function MapController($resource) {
   console.log("mapEventMarkers", this.mapEventMarkers)
 
   // set the center of the map
-  this.mapCenter = {lat: 13.736717, lng:  100.523186};
+  this.mapCenter = {lat: 51.5074, lng: 0.1278};
 }
 
 InitMap.$inject = ["Location"];
@@ -50,7 +50,8 @@ function InitMap(Location) {
 
       var map = new google.maps.Map($element[0], {
         center: scope.center,
-        zoom: 5,
+        zoom: 2,
+        mapTypeId: google.maps.MapTypeId.SATELLITE
       });
 
       // array containing all the markers related to the events
@@ -90,7 +91,6 @@ function InitMap(Location) {
             });
 
             // set the content of the infowindow
-            console.log("event:", marker)
             infoWindow.setContent("Event:"+ this.event);
 
             // on click, open the infowindow

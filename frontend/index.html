@@ -13,6 +13,9 @@
   <!-- google map drawing and geometry library -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxM36DxD-TmmCuWMML0UXBVSirOUkF42Q&signed_in=true&libraries=drawing,geometry"></script>
 
+  <!--   socket -->
+  <script src="/socket.io/socket.io.js"></script>
+
   <!--   bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -25,87 +28,120 @@
   <script src="/js/services/token.js"></script>
   <script src="/js/directives/gmaps.js"></script>
   <script src="/js/services/location.js"></script>
-<!--   <script src="/js/controllers/usersController.js"></script> -->
+  <!--   <script src="/js/controllers/usersController.js"></script> -->
   <script src="/js/controllers/eventsController.js"></script>
   <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body ng-controller="MainController as main">
+  <div class="container">
 
-<!-- login/register form -->
-<div class="container">
+    <nav class="navbar navbar-default">
+      <ul class="nav navbar-nav">
+        <button class="btn btn-default navbar-btn" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false">Login</button>
+        <button class="btn btn-default navbar-btn" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false">Create an Events</button>
+        <button class="btn btn-default navbar-btn" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false">Global Chat</button>
+      </ul>
+    </nav>
+    <h1>Mappers</h1>
 
-  <nav class="navbar navbar-default">
-    <ul class="nav navbar-nav">
-      <button class="btn btn-default navbar-btn" ng-click="showLoginForm=true; showEventsForm=false">Login</button>
-      <button class="btn btn-default navbar-btn" ng-click="showEventsForm=true; showLoginForm=false">Create an Events</button>
-    </ul>
-  </nav>
 
-  <div class="loginForm" ng-show="showLoginForm">
-    <div ng-hide="main.isLoggedIn()">
-      <h1>Mappers</h1>
-      <h3>Login with Facebook</h3>
-      <button class="facebook" ng-click="main.authenticate('facebook')"><i class="fa fa-facebook-square"></i> Sign in with Facebook</button>
+    <!-- <h2>Mappers Global Chat</h2>
+    <div class="globalChat" ng-show="showglobalChat=true">
+      <div ng-hide="main.hasSetUsername">
+        <form ng-submit="main.setUsername()">
+          <div class="form-group">
+            <input ng-model="main.username" class="form-control" placeholder="username">
+          </div>
+          <button class="btn btn-primary">Start Chatting</button>
+        </form>
+      </div>
+
+      <div ng-show="main.hasSetUsername">
+        <div id="message-panel">
+          <ul>
+            <li ng-repeat="message in main.messages track by $index" ng-class="{ me: message.username === main.username }">
+              <span class="message">{{ message.text }}</span>
+              <span class="username">{{ message.username }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <form ng-submit="main.sendMessage()" class="form-inline">
+          <div class="form-group">
+            <input ng-model="main.message" class="form-control">
+          </div>
+
+          <button class="btn btn-primary">Send</button>
+        </form>
+      </div>
+    </div> -->
+
+    <!-- login/register form -->
+
+    <div class="loginForm" ng-show="showLoginForm">
+      <div ng-hide="main.isLoggedIn()">
+        <h3>Login with Facebook</h3>
+        <button class="facebook" ng-click="main.authenticate('facebook')"><i class="fa fa-facebook-square"></i> Sign in with Facebook</button>
+      </div>
+      <div ng-show="main.isLoggedIn()">
+        <img ng-src="{{ main.currentUser.picture }}" class="profile">
+        <h2>{{ main.currentUser.name }} </h2>
+        <hr>
+        <button class="logout" ng-click="main.logout()"><i class="fa fa-sign-out"></i> Logout</button>
+      </div>
     </div>
-    <div ng-show="main.isLoggedIn()">
-      <img ng-src="{{ main.currentUser.picture }}">
-      <h2>{{ main.currentUser.name }} </h2>
-      <hr>
-      <button class="logout" ng-click="main.logout()"><i class="fa fa-sign-out"></i> Logout</button>
-    </div>
-  </div>
 
     <section ng-controller="EventsController as events">
       <div class="eventsForm" ng-show="showEventForm=true">
         <h2>Events </h2> 
-          <h2>Create Event</h2>
+        <h2>Create Event</h2>
 
-          <div class="form-group">
+        <div class="form-group">
 
-            <form ng-submit="events.addEvent(events.newEvent)" enctype="multipart/form-data" id="event">
+          <form ng-submit="events.addEvent(events.newEvent)" enctype="multipart/form-data" id="event">
 
-              <input name="title"type="text" class="form-control" ng-model="events.newEvent.title" placeholder="Event title">
+            <input name="title"type="text" class="form-control" ng-model="events.newEvent.title" placeholder="Event title">
 
-              <input name="address" type="text" class="form-control" id="address"ng-model="events.newEvent.address" placeholder="address" ng-blur="events.geocode()">
+            <input name="address" type="text" class="form-control" id="address"ng-model="events.newEvent.address" placeholder="address" ng-blur="events.geocode()">
 
-              <input name="city" type="text" class="form-control" id="city" ng-model="events.newEvent.city"placeholder="city" ng-blur="events.geocode()">
+            <input name="city" type="text" class="form-control" id="city" ng-model="events.newEvent.city"placeholder="city" ng-blur="events.geocode()">
 
-              <input name="postcode" type="text" class="form-control" id="postcode" ng-model="events.newEvent.postcode" placeholder="postcode" ng-blur="events.geocode()">
+            <input name="postcode" type="text" class="form-control" id="postcode" ng-model="events.newEvent.postcode" placeholder="postcode" ng-blur="events.geocode()">
 
-              <input name="lat" type="text" class="form-control" ng-model="events.newEvent.lat" ng-model="events.newEvent.lat"placeholder="Event lat">
+            <input name="lat" type="text" class="form-control" ng-model="events.newEvent.lat" ng-model="events.newEvent.lat"placeholder="Event lat">
 
-              <input name="lng" type="text" class="form-control" ng-model="events.newEvent.lng" ng-model="events.newEvent.lng"placeholder="Event lng">
+            <input name="lng" type="text" class="form-control" ng-model="events.newEvent.lng" ng-model="events.newEvent.lng"placeholder="Event lng">
 
-              <input type="submit" class="btn btn-default" value="Create">
+            <input type="submit" class="btn btn-default" value="Create">
 
-            </form>
+          </form>
 
-          </div>
+        </div>
           <!-- <ul>
             <li ng-repeat="event in events.events" ng-click="events.selectEvent(event)">
               {{ event.title }} // lat:{{ event.lat }} - lng: {{ event.lng }}
               <button ng-click="event.deleteEvent(event)">Delete</button>
             </li>
           </ul> -->
+        </div>
+      </section>
+
+      <div >
+
       </div>
+    </div>
+
+
+    <!--   MAP -->
+    <section ng-controller="MapController as map">
+      <map center="map.mapCenter" markers="map.mapEventMarkers"></map>
+      <!-- <button id="eventsButton" class="btn btn-default navbar-btn" ng-click="showEventsForm=true; showLoginForm=false">Create an Adventure</button> -->
     </section>
 
-    <div >
-      
-    </div>
-</div>
-
-
-  <!--   MAP -->
-  <section ng-controller="MapController as map">
-    <map center="map.mapCenter" markers="map.mapEventMarkers"></map>
-    <!-- <button id="eventsButton" class="btn btn-default navbar-btn" ng-click="showEventsForm=true; showLoginForm=false">Create an Adventure</button> -->
-  </section>
-
-</body>
-</html>
+  </body>
+  </html>
 
 
 
