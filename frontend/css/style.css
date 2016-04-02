@@ -42,7 +42,7 @@ body {
   letter-spacing: -0.5px;
   color: #333; }
 
-img {
+img.profile {
   margin-top: 40px;
   max-width: 125px;
   border-radius: 100%; }

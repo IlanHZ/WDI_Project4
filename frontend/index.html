@@ -61,13 +61,27 @@
       <div class="eventsForm" ng-show="showEventForm=true">
         <h2>Events </h2> 
           <h2>Create Event</h2>
+
           <div class="form-group">
-            <form ng-submit="events.addEvent(events.newEvent)">
-              <input type="text" class="form-control" ng-model="events.newEvent.title" placeholder="Event title">
-              <input type="number" class="form-control" ng-model="events.newEvent.lat" placeholder="Event lat">
-              <input type="number" class="form-control" ng-model="events.newEvent.lng" placeholder="Event lng">
+
+            <form ng-submit="events.addEvent(events.newEvent)" enctype="multipart/form-data" id="event">
+
+              <input name="title"type="text" class="form-control" ng-model="events.newEvent.title" placeholder="Event title">
+
+              <input name="address" type="text" class="form-control" id="address"ng-model="events.newEvent.address" placeholder="address" ng-blur="events.geocode()">
+
+              <input name="city" type="text" class="form-control" id="city" ng-model="events.newEvent.city"placeholder="city" ng-blur="events.geocode()">
+
+              <input name="postcode" type="text" class="form-control" id="postcode" ng-model="events.newEvent.postcode" placeholder="postcode" ng-blur="events.geocode()">
+
+              <input name="lat" type="number" class="form-control" ng-model="events.newEvent.lat" ng-model="events.newEvent.lat"placeholder="Event lat">
+
+              <input name="lng" type="number" class="form-control" ng-model="events.newEvent.lng" ng-model="events.newEvent.lng"placeholder="Event lng">
+
               <input type="submit" class="btn btn-default" value="Create">
+
             </form>
+
           </div>
           <!-- <ul>
             <li ng-repeat="event in events.events" ng-click="events.selectEvent(event)">
@@ -77,13 +91,17 @@
           </ul> -->
       </div>
     </section>
+
+    <div >
+      
+    </div>
 </div>
 
 
   <!--   MAP -->
   <section ng-controller="MapController as map">
     <map center="map.mapCenter" markers="map.mapEventMarkers"></map>
-    <button id="eventsButton" class="btn btn-default navbar-btn" ng-click="showEventsForm=true; showLoginForm=false">Create an Adventure</button>
+    <!-- <button id="eventsButton" class="btn btn-default navbar-btn" ng-click="showEventsForm=true; showLoginForm=false">Create an Adventure</button> -->
   </section>
 
 </body>

@@ -71,6 +71,7 @@ function InitMap(Location) {
             //   console.log("Current longitude :", pos.coords.longitude);
             // });
 
+
             var latLng = new google.maps.LatLng(marker.lat, marker.lng);
 
             var marker = new google.maps.Marker({
@@ -78,7 +79,7 @@ function InitMap(Location) {
               map: map,
               animation: google.maps.Animation.DROP,
               icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-              draggable: true
+              // draggable: true
             });
 
             // Create an infowindow for the events markers

@@ -7,6 +7,9 @@ var eventSchema = mongoose.Schema({
   date: Date,
   time: Number,
   description: String,
+  city: String,
+  address: String,
+  postcode: String,
   lat: Number,
   lng: Number
 });

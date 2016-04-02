@@ -2,13 +2,13 @@ angular
   .module('mappersApp')
   .controller('EventsController', EventsController);
 
-EventsController.$inject = ['$resource', 'tokenService', 'Location'];
-function EventsController($resource, tokenService, Location) {
+EventsController.$inject = ['$resource', 'tokenService', 'Location', '$scope'];
+function EventsController($resource, tokenService, Location, $scope) {
 
 
   var userCurrentLatitude;
 
-  
+
   // get the geolocation from the promise
   // Location.get().then(function(pos){
   //   console.log("Current latitude :", pos.coords.latitude);
@@ -36,6 +36,28 @@ function EventsController($resource, tokenService, Location) {
   this.selectedEvent= null;
   
   this.event = Event.query();
+
+  this.newEvent = {};
+  var geocoder = new google.maps.Geocoder();
+
+  this.geocode = function() {
+    console.log("GEOCODE!");
+    var address = [self.newEvent.address, self.newEvent.city, self.newEvent.postcode].join(',');
+    geocoder.geocode({ address: address}, function(results){
+
+      if(results && results.length > 0) {
+        var location = results[0].geometry.location;
+
+        $scope.$applyAsync(function() {
+          self.newEvent.lat = location.lat();
+          self.newEvent.lng = location.lng();
+        });
+      }
+
+    });
+  }
+
+
 
   this.selectEvent = function(event) {
     this.selectedEvent = Event.get({ id: event._id });
