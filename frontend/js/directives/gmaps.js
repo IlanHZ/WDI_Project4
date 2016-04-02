@@ -34,9 +34,20 @@ function InitMap(Location) {
 
     link: function(scope, $element, attr) {
 
+      // get the geolocation from the promise
       Location.get().then(function(pos){
-        console.log("1st time", pos);
+        console.log("1st time", pos.coords);
+       pos = new google.maps.Marker({
+         map: map,
+         icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+       });
       });
+
+      // add a marker on the position of the user
+      // Location.get() = new google.maps.Marker({
+      //    map: map,
+      //    icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+      //  });
 
       if(!scope.center) throw new Error("You must provide a center for your map directive")
 
@@ -154,47 +165,47 @@ function InitMap(Location) {
         });
       } 
 
-     // // *** Geolocation ***
+     // *** Geolocation ***
 
-     //  var myCurrentPosition = new google.maps.Marker({
-     //    map: map,
-     //    icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
-     //  });
+      var myCurrentPosition = new google.maps.Marker({
+        map: map,
+        icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+      });
 
-     //  if (navigator.geolocation) {
+      if (navigator.geolocation) {
 
-     //    navigator.geolocation.getCurrentPosition(function(position) {
+        navigator.geolocation.getCurrentPosition(function(position) {
 
-     //      var pos = {
-     //        lat: position.coords.latitude,
-     //        lng: position.coords.longitude
-     //      };
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
 
-     //      console.log("my lat :", pos.lat)
-     //      console.log("my lng :", pos.lng)
+          console.log("my lat :", pos.lat)
+          console.log("my lng :", pos.lng)
 
-     //      myCurrentPosition.setPosition(pos);
+          myCurrentPosition.setPosition(pos);
 
-     //      map.setCenter(pos);
+          // map.setCenter(pos);
 
-     //    }, function() {
+        }, function() {
 
-     //      handleLocationError(true, myCurrentPosition, map.getCenter());
+          handleLocationError(true, myCurrentPosition, map.getCenter());
 
-     //    });
+        });
 
-     //  } else {
+      } else {
 
-     //    // Browser doesn't support Geolocation
-     //    handleLocationError(false, myCurrentPosition, map.getCenter());
-     //  }
+        // Browser doesn't support Geolocation
+        handleLocationError(false, myCurrentPosition, map.getCenter());
+      }
 
-     //  function handleLocationError(browserHasGeolocation, myCurrentPosition, pos) {
+      function handleLocationError(browserHasGeolocation, myCurrentPosition, pos) {
 
-     //      myCurrentPosition.setPosition(pos);
-     //      myCurrentPosition.setContent(browserHasGeolocation ?'Error: The Geolocation service failed.': 'Error: Your browser doesn\'t support geolocation.');
+          myCurrentPosition.setPosition(pos);
+          myCurrentPosition.setContent(browserHasGeolocation ?'Error: The Geolocation service failed.': 'Error: Your browser doesn\'t support geolocation.');
 
-     //  }
+      }
     }
   }
 }
