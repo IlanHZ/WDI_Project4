@@ -17,6 +17,7 @@ function EventsController($resource, tokenService) {
 
   // select a specific character
   this.selectedEvent= null;
+  
   this.event = Event.query();
 
   this.selectEvent = function(event) {

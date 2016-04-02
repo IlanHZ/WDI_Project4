@@ -14,13 +14,14 @@ function MapController($resource) {
 
   // get all the events 
   this.mapEventMarkers = Event.query(); 
-  // console.log(this.mapEventMarkers)
+  console.log("mapEventMarkers", this.mapEventMarkers)
 
   // set the center of the map
   this.mapCenter = {lat: 13.736717, lng:  100.523186};
 }
 
-function InitMap() {
+InitMap.$inject = ["Location"];
+function InitMap(Location) {
 
   return {
     restrict: 'E',
@@ -32,6 +33,10 @@ function InitMap() {
     },
 
     link: function(scope, $element, attr) {
+
+      Location.get().then(function(pos){
+        console.log("1st time", pos);
+      });
 
       if(!scope.center) throw new Error("You must provide a center for your map directive")
 
@@ -48,7 +53,6 @@ function InitMap() {
       if(scope.markers) {
         
         scope.markers.$promise.then(function(markers) {
-          console.log("Scope Markers:", markers);
 
           markers.forEach(function(marker, event) {
 
@@ -58,28 +62,35 @@ function InitMap() {
               position: latLng,
               map: map,
               animation: google.maps.Animation.DROP,
-              icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+              icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+              draggable: true
             });
 
             // Create an infowindow for the events markers
             var infoWindow = new google.maps.InfoWindow({
+
               position: latLng,
-              content: "<p>" + marker.title+"</p>"  
+              // content: "<p>Event:" + event.title+"</p>"  
             });
-            console.log("currentInfoWindow:", currentInfoWindow)
-            console.log("event.title:", event.title)
+
+            // set the content of the infowindow
+            console.log("event:", marker)
+            infoWindow.setContent("Event:"+ this.event);
 
             // on click, open the infowindow
+
             marker.addListener('click', function(){
+
               // if an other one is clicked, close the current one.
               if(currentInfoWindow) currentInfoWindow.close();
-              currentInfoWindow = infoWindow;
-              infoWindow.open(map);
-              console.log(currentInfoWindow)
 
+              currentInfoWindow = infoWindow;
+
+              infoWindow.open(map);
             });
 
             allEventsMarker.push(marker);
+
           });
         });
       }
@@ -90,7 +101,6 @@ function InitMap() {
         strokeOpacity: 1.0,
         strokeWeight: 3
       });
-      console.log("POLY:", poly);
 
       poly.setMap(map);
 
@@ -99,10 +109,9 @@ function InitMap() {
 
       // Handles click events on a map, and adds a new point to the Polyline.
       function addLatLng(myTravelLine) {
-        console.log(myTravelLine.latLng)
+        console.log("My Travel Line:", myTravelLine.latLng)
 
         var path = poly.getPath();
-        console.log("path:" + path)
 
         // Because path is an MVCArray, we can simply append a new coordinate
         // and it will automatically appear.
@@ -115,7 +124,6 @@ function InitMap() {
           map: map,
           icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
         });
-        console.log("Marker number:" + marker.title)
         console.log("Marker coordinate:" + marker.position )
 
 
@@ -129,59 +137,64 @@ function InitMap() {
         circle.bindTo('center', marker, 'position');
 
         // isLocationOnEdge(point:LatLng, poly:Polygon|Polyline, tolerance?:number)
-        console.log("marker position:", marker.position)
-        console.log(allEventsMarker);
 
         allEventsMarker.forEach(function(marker) {
 
           // isLocationOnEdge(point:LatLng, poly:Polygon|Polyline, tolerance?:number)
           if (google.maps.geometry.poly.isLocationOnEdge(marker.getPosition(), poly, 1)) {
+
             console.log("In the radius");
             marker.setMap(map);
+
           } else {
+
             console.log("Out of the radius");
             marker.setMap(null);
           }
         });
       } 
 
-     // *** Geolocation ***
+     // // *** Geolocation ***
 
-      var myCurrentPosition = new google.maps.Marker({
-        map: map,
-        icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
-      });
+     //  var myCurrentPosition = new google.maps.Marker({
+     //    map: map,
+     //    icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+     //  });
 
-      if (navigator.geolocation) {
+     //  if (navigator.geolocation) {
 
-        navigator.geolocation.getCurrentPosition(function(position) {
+     //    navigator.geolocation.getCurrentPosition(function(position) {
 
-          var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
+     //      var pos = {
+     //        lat: position.coords.latitude,
+     //        lng: position.coords.longitude
+     //      };
 
-          console.log("my lat :", pos.lat)
-          console.log("my lng :", pos.lng)
+     //      console.log("my lat :", pos.lat)
+     //      console.log("my lng :", pos.lng)
 
-          myCurrentPosition.setPosition(pos);
+     //      myCurrentPosition.setPosition(pos);
 
-          // myCurrentPosition.setContent('Location found.');
+     //      map.setCenter(pos);
 
-          map.setCenter(pos);
+     //    }, function() {
 
-        }, function() {
-          handleLocationError(true, myCurrentPosition, map.getCenter());
-        });
-      } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, myCurrentPosition, map.getCenter());
-      }
+     //      handleLocationError(true, myCurrentPosition, map.getCenter());
 
-      function handleLocationError(browserHasGeolocation, myCurrentPosition, pos) {
-          myCurrentPosition.setPosition(pos);
-          myCurrentPosition.setContent(browserHasGeolocation ?'Error: The Geolocation service failed.': 'Error: Your browser doesn\'t support geolocation.');
-      }
+     //    });
+
+     //  } else {
+
+     //    // Browser doesn't support Geolocation
+     //    handleLocationError(false, myCurrentPosition, map.getCenter());
+     //  }
+
+     //  function handleLocationError(browserHasGeolocation, myCurrentPosition, pos) {
+
+     //      myCurrentPosition.setPosition(pos);
+     //      myCurrentPosition.setContent(browserHasGeolocation ?'Error: The Geolocation service failed.': 'Error: Your browser doesn\'t support geolocation.');
+
+     //  }
     }
   }
 }
