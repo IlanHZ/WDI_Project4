@@ -36,11 +36,8 @@ function InitMap(Location) {
 
       // get the geolocation from the promise
       Location.get().then(function(pos){
-        console.log("1st time", pos.coords);
-       pos = new google.maps.Marker({
-         map: map,
-         icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
-       });
+        console.log("Current latitude :", pos.coords.latitude);
+        console.log("Current longitude :", pos.coords.longitude);
       });
 
       // add a marker on the position of the user
@@ -66,6 +63,13 @@ function InitMap(Location) {
         scope.markers.$promise.then(function(markers) {
 
           markers.forEach(function(marker, event) {
+
+
+            // get the geolocation from the promise
+            // Location.get().then(function(pos){
+            //   console.log("Current latitude :", pos.coords.latitude);
+            //   console.log("Current longitude :", pos.coords.longitude);
+            // });
 
             var latLng = new google.maps.LatLng(marker.lat, marker.lng);
 
@@ -172,6 +176,8 @@ function InitMap(Location) {
         icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
       });
 
+      
+
       if (navigator.geolocation) {
 
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -180,9 +186,6 @@ function InitMap(Location) {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
-
-          console.log("my lat :", pos.lat)
-          console.log("my lng :", pos.lng)
 
           myCurrentPosition.setPosition(pos);
 

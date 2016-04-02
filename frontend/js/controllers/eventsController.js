@@ -2,12 +2,29 @@ angular
   .module('mappersApp')
   .controller('EventsController', EventsController);
 
-EventsController.$inject = ['$resource', 'tokenService'];
-function EventsController($resource, tokenService) {
+EventsController.$inject = ['$resource', 'tokenService', 'Location'];
+function EventsController($resource, tokenService, Location) {
+
+
+  var userCurrentLatitude;
+
+  
+  // get the geolocation from the promise
+  // Location.get().then(function(pos){
+  //   console.log("Current latitude :", pos.coords.latitude);
+  //   console.log("Current longitude :", pos.coords.longitude);
+
+  //   var userCurrentLatitude = pos.coords.latitude
+  //   var userCurrentLongitude = pos.coords.longitude
+  // });
+
+  console.log(userCurrentLatitude)
+
 
   this.currentUser = tokenService.getUser();
   
   console.log("current user:", this.currentUser)
+
   var self = this;
 
   var Event = $resource("http://localhost:3000/events/:id", { id: '@_id' }, { update: {method: 'PUT'}});
