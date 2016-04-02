@@ -10,8 +10,8 @@ var eventSchema = mongoose.Schema({
   city: String,
   address: String,
   postcode: String,
-  lat: Number,
-  lng: Number
+  lat: String,
+  lng: String
 });
 
 module.exports = mongoose.model('Event', eventSchema);

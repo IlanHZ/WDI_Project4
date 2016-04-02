@@ -38,6 +38,7 @@ function EventsController($resource, tokenService, Location, $scope) {
   this.event = Event.query();
 
   this.newEvent = {};
+
   var geocoder = new google.maps.Geocoder();
 
   this.geocode = function() {
