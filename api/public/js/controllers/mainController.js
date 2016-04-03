@@ -7,34 +7,34 @@ function MainController($auth, tokenService, $window, $scope) {
 
   var self = this;
   
-  // var socket = $window.io();
+  var socket = $window.io();
 
-  // // SOCKET
-  // self.messages = [];
+  // SOCKET
+  self.messages = [];
 
-  // self.message = null;
+  self.message = null;
 
-  // self.hasSetUsername = false;
+  self.hasSetUsername = false;
 
-  // self.username = "";
+  self.username = "";
 
-  // self.setUsername = function() {
-  //   if(self.username.length > 2) self.hasSetUsername = true;
-  // }
+  self.setUsername = function() {
+    if(self.username.length > 2) self.hasSetUsername = true;
+  }
 
-  //   // Push the message into the array once recieved by the server
-  //   socket.on('message', function(message) {
-  //     // 
-  //     $scope.$applyAsync(function() {
-  //       self.messages.push(message);
-  //     });
-  //   });
+    // Push the message into the array once recieved by the server
+    socket.on('message', function(message) {
+      // 
+      $scope.$applyAsync(function() {
+        self.messages.push(message);
+      });
+    });
 
-  //   // update the sendMessage function
-  //   self.sendMessage = function() {
-  //     socket.emit('message', { text: self.message, username: self.username });
-  //     self.message = null;
-  //   }
+    // update the sendMessage function
+    self.sendMessage = function() {
+      socket.emit('message', { text: self.message, username: self.username });
+      self.message = null;
+    }
 
 
   // LOGIN
