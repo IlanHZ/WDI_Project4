@@ -19,8 +19,13 @@
   <!--   bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
+  <!-- fonts -->
   <link href='https://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+
+ <!--   jquery -->
+ <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+ <script src="https://cdn.rawgit.com/nnattawat/flip/v1.0.20/dist/jquery.flip.min.js"></script>
 
 
   <!-- Internal Modules -->
@@ -49,7 +54,6 @@
 <!--         <li id="navLi" ng-click="showUsers=true; showGlobalChat=false; showEventsForm=false; showLoginForm=false">Community</li> -->
       </ul>
     </nav>
-
     
     <h1>Mappers.</h1>
 
@@ -61,7 +65,7 @@
         <form ng-submit="main.setUsername()">
           <div class="form-group">
             Logged in as:
-            <input readonly="readonly" ng-model="main.username" class="form-control" placeholder="username">
+            <input readonly="readonly" ng-model="main.username" class="form-control" id="loggedAs" placeholder="username">
           </div>
           <button class="btn btn-primary">Start Chatting</button>
         </form>
@@ -144,6 +148,7 @@
             </li>
           </ul> -->
         </div>
+
       </section>
 <!--       <section ng-controller="UsersController as users"> -->
         <ul  ng-show="showUsers">

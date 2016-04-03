@@ -18,3 +18,4 @@ angular
     // store the token as "token", not satellizer_token, don't let people know which tech we re using
     $authProvider.tokenPrefix = null;
   }
+
