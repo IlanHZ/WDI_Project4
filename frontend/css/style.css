@@ -93,6 +93,12 @@ button {
     button.logout:hover {
       background: #a63838; }
 
+.navbar-btn {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 120px;
+  text-align: center;
+}
 /* Map */
 .google-map {
   position: absolute;
@@ -107,8 +113,27 @@ button {
   height: 100px;
 }
 
+#userInfoWindowName{
+  position: relative;
+  bottom: 5px;
+  width: 100%;
+  font-weight: 100;
+  font-size: 20px;
+  color: black;
+}
 
-
+.gm-svpc{
+  float: right !important;
+  box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+  border-radius: 50% !important;
+  width: 40px !important;
+  height: 40px !important;
+  cursor: url("https://maps.gstatic.com/mapfiles/openhand_8_8.cur") 8 8, default;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: red !important;
+}
 
 
 

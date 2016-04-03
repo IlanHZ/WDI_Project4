@@ -39,16 +39,16 @@
 
     <nav class="navbar navbar-default">
       <ul class="nav navbar-nav">
-        <button class="btn btn-default navbar-btn" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false">Login</button>
-        <button class="btn btn-default navbar-btn" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false">Create an Events</button>
-        <button class="btn btn-default navbar-btn" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false">Global Chat</button>
+        <li><button class="btn btn-default navbar-btn" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false">Login</button></li>
+        <li><button class="btn btn-default navbar-btn" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false">Create an Events</button></li>
+        <li><button class="btn btn-default navbar-btn" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false">Global Chat</button></li>
       </ul>
     </nav>
     <h1>Mappers</h1>
 
 
-    <!-- <h2>Mappers Global Chat</h2>
-    <div class="globalChat" ng-show="showglobalChat=true">
+    <div class="globalChat" ng-show="showGlobalChat">
+    <h2>Mappers Global Chat</h2>
       <div ng-hide="main.hasSetUsername">
         <form ng-submit="main.setUsername()">
           <div class="form-group">
@@ -57,7 +57,7 @@
           <button class="btn btn-primary">Start Chatting</button>
         </form>
       </div>
-
+<!-- 
       <div ng-show="main.hasSetUsername">
         <div id="message-panel">
           <ul>
@@ -75,8 +75,8 @@
 
           <button class="btn btn-primary">Send</button>
         </form>
-      </div>
-    </div> -->
+      </div> -->
+    </div>
 
     <!-- login/register form -->
 

@@ -40,12 +40,6 @@ function InitMap(Location, tokenService) {
         console.log("Current longitude :", pos.coords.longitude);
       });
 
-      // add a marker on the position of the user
-      // Location.get() = new google.maps.Marker({
-      //    map: map,
-      //    icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
-      //  });
-
       if(!scope.center) throw new Error("You must provide a center for your map directive")
 
       var map = new google.maps.Map($element[0], {
@@ -65,6 +59,8 @@ function InitMap(Location, tokenService) {
          
           markers.forEach(function(marker, event) {
 
+            var latLng = new google.maps.LatLng(marker.lat, marker.lng);
+
 
             // get the geolocation from the promise
             // Location.get().then(function(pos){
@@ -72,9 +68,17 @@ function InitMap(Location, tokenService) {
             //   console.log("Current longitude :", pos.coords.longitude);
             // });
             console.log(marker.title)
+            // Create an infowindow for the events markers
+            var eventInfoWindow = new google.maps.InfoWindow({
 
-            var latLng = new google.maps.LatLng(marker.lat, marker.lng);
+              position: latLng,
+              // content: "<p>Event:" + marker.title + "</p>"
+              content:"Event:" + marker.title
 
+            });
+           
+
+            
             var marker = new google.maps.Marker({
               position: latLng,
               map: map,
@@ -93,13 +97,6 @@ function InitMap(Location, tokenService) {
 
         
 
-            // Create an infowindow for the events markers
-            var eventInfoWindow = new google.maps.InfoWindow({
-
-              position: latLng,
-              content: "<p>Event:" + marker.title + "</p>"
-
-            });
             // set the content of the infowindow
             // eventInfoWindow.setContent("Event:"+ marker.title);
 
