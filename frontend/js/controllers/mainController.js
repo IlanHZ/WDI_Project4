@@ -35,7 +35,7 @@ function MainController($auth, tokenService, $window, $scope) {
   //     socket.emit('message', { text: self.message, username: self.username });
   //     self.message = null;
   //   }
-  
+
 
   // LOGIN
   this.isLoggedIn = function() {

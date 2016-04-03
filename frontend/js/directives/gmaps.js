@@ -62,7 +62,7 @@ function InitMap(Location, tokenService) {
       if(scope.markers) {
         
         scope.markers.$promise.then(function(markers) {
-
+         
           markers.forEach(function(marker, event) {
 
 
@@ -71,7 +71,7 @@ function InitMap(Location, tokenService) {
             //   console.log("Current latitude :", pos.coords.latitude);
             //   console.log("Current longitude :", pos.coords.longitude);
             // });
-
+            console.log(marker.title)
 
             var latLng = new google.maps.LatLng(marker.lat, marker.lng);
 
@@ -83,15 +83,25 @@ function InitMap(Location, tokenService) {
               // draggable: true
             });
 
+
+            // var eventInfowindow = new google.maps.InfoWindow({
+            //   position: latLng,
+            //   // set a variable with the content of the event infowindow
+            //   content: "<p>Event:"+ marker.title + "</p>"
+
+            // });
+
+        
+
             // Create an infowindow for the events markers
-            var infoWindow = new google.maps.InfoWindow({
+            var eventInfoWindow = new google.maps.InfoWindow({
 
               position: latLng,
-              // content: "<p>Event:" + event.title+"</p>"  
+              content: "<p>Event:" + marker.title + "</p>"
+
             });
-            console.log(marker)
             // set the content of the infowindow
-            infoWindow.setContent("Event:"+ this.event.title);
+            // eventInfoWindow.setContent("Event:"+ marker.title);
 
             // on click, open the infowindow
 
@@ -100,9 +110,9 @@ function InitMap(Location, tokenService) {
               // if an other one is clicked, close the current one.
               if(currentInfoWindow) currentInfoWindow.close();
 
-              currentInfoWindow = infoWindow;
+              currentInfoWindow = eventInfoWindow;
 
-              infoWindow.open(map);
+              eventInfoWindow.open(map);
             });
 
             allEventsMarker.push(marker);
@@ -171,15 +181,14 @@ function InitMap(Location, tokenService) {
       } 
 
     // *** Geolocation ***
+
+    // get the informations on the user from the token (facbook login)    
     this.currentUser = tokenService.getUser();
-    console.log("current user:", this.currentUser.picture)
-
-    // set a variable with the content of the users infowindow
-    // var userInfoWindow = "<p><img id='userInfoWindowImage' src='"+ this.currentUser.picture + ">"+"</p><p>"+ this.currentUser.name+"</p>";
-
 
     // set the infowindow variable for the user
     var userInfowindow = new google.maps.InfoWindow({
+
+      // set a variable with the content of the users infowindow
       content: "<img id='userInfoWindowImage' src=" + this.currentUser.picture + "></img>" + "<p id='userInfoWindowName'>" + this.currentUser.name + "</p>"
 
     });
@@ -192,10 +201,10 @@ function InitMap(Location, tokenService) {
 
       // create a click event on the marker to open the infowindow
       myCurrentPosition.addListener('click', function() {
-        userInfowindow.open(map, myCurrentPosition);
-      });
 
-      console.log()
+        userInfowindow.open(map, myCurrentPosition);
+
+      });
 
       if (navigator.geolocation) {
 
