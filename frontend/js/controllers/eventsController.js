@@ -21,9 +21,9 @@ function EventsController($resource, tokenService, Location, $scope) {
   console.log(userCurrentLatitude)
 
 
-  this.currentUser = tokenService.getUser();
+  // this.currentUser = tokenService.getUser();
   
-  console.log("current user:", this.currentUser)
+  // console.log("current user:", this.currentUser.name)
 
   var self = this;
 

@@ -20,8 +20,8 @@ function MapController($resource) {
   this.mapCenter = {lat: 51.5074, lng: 0.1278};
 }
 
-InitMap.$inject = ["Location"];
-function InitMap(Location) {
+InitMap.$inject = ["Location", 'tokenService'];
+function InitMap(Location, tokenService) {
 
   return {
     restrict: 'E',
@@ -89,9 +89,9 @@ function InitMap(Location) {
               position: latLng,
               // content: "<p>Event:" + event.title+"</p>"  
             });
-
+            console.log(marker)
             // set the content of the infowindow
-            infoWindow.setContent("Event:"+ this.event);
+            infoWindow.setContent("Event:"+ this.event.title);
 
             // on click, open the infowindow
 
@@ -170,14 +170,32 @@ function InitMap(Location) {
         });
       } 
 
-     // *** Geolocation ***
+    // *** Geolocation ***
+    this.currentUser = tokenService.getUser();
+    console.log("current user:", this.currentUser.picture)
 
-      var myCurrentPosition = new google.maps.Marker({
-        map: map,
-        icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+    // set a variable with the content of the users infowindow
+    // var userInfoWindow = "<p><img id='userInfoWindowImage' src='"+ this.currentUser.picture + ">"+"</p><p>"+ this.currentUser.name+"</p>";
+
+
+    // set the infowindow variable for the user
+    var userInfowindow = new google.maps.InfoWindow({
+      content: "<img id='userInfoWindowImage' src=" + this.currentUser.picture + "></img>" + "<p id='userInfoWindowName'>" + this.currentUser.name + "</p>"
+
+    });
+
+
+    var myCurrentPosition = new google.maps.Marker({
+      map: map,
+      icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+    });
+
+      // create a click event on the marker to open the infowindow
+      myCurrentPosition.addListener('click', function() {
+        userInfowindow.open(map, myCurrentPosition);
       });
 
-      
+      console.log()
 
       if (navigator.geolocation) {
 
@@ -206,8 +224,8 @@ function InitMap(Location) {
 
       function handleLocationError(browserHasGeolocation, myCurrentPosition, pos) {
 
-          myCurrentPosition.setPosition(pos);
-          myCurrentPosition.setContent(browserHasGeolocation ?'Error: The Geolocation service failed.': 'Error: Your browser doesn\'t support geolocation.');
+        myCurrentPosition.setPosition(pos);
+        myCurrentPosition.setContent(browserHasGeolocation ?'Error: The Geolocation service failed.': 'Error: Your browser doesn\'t support geolocation.');
 
       }
     }
