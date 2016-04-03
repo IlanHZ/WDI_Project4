@@ -46,6 +46,7 @@
     </nav>
     <h1>Mappers</h1>
 
+<!--     GLOBAL CHAT -->
 
     <div class="globalChat" ng-show="showGlobalChat">
     <h2>Mappers Global Chat</h2>
@@ -57,7 +58,7 @@
           <button class="btn btn-primary">Start Chatting</button>
         </form>
       </div>
-<!-- 
+
       <div ng-show="main.hasSetUsername">
         <div id="message-panel">
           <ul>
@@ -75,7 +76,7 @@
 
           <button class="btn btn-primary">Send</button>
         </form>
-      </div> -->
+      </div>
     </div>
 
     <!-- login/register form -->
@@ -101,8 +102,18 @@
         <div class="form-group">
 
           <form ng-submit="events.addEvent(events.newEvent)" enctype="multipart/form-data" id="event">
-
+            
             <input name="title"type="text" class="form-control" ng-model="events.newEvent.title" placeholder="Event title">
+
+            <input name="organizer"type="text" class="form-control" ng-model="events.newEvent.organizer" placeholder="Name">
+
+            Starting Date:
+            <input name="start_date"type="date" class="form-control" ng-model="events.newEvent.start_date" placeholder="Starting Date">
+
+            Ending Date:
+            <input name="end_date"type="date" class="form-control" ng-model="events.newEvent.end_date" placeholder="Ending Date">
+
+            <input name="time" type="time" class="form-control" ng-model="events.newEvent.time" placeholder="Starting time">
 
             <input name="address" type="text" class="form-control" id="address"ng-model="events.newEvent.address" placeholder="address" ng-blur="events.geocode()">
 
@@ -110,9 +121,9 @@
 
             <input name="postcode" type="text" class="form-control" id="postcode" ng-model="events.newEvent.postcode" placeholder="postcode" ng-blur="events.geocode()">
 
-            <input name="lat" type="text" class="form-control" ng-model="events.newEvent.lat" ng-model="events.newEvent.lat"placeholder="Event lat">
+            <input name="lat" type="text" class="hidden" ng-model="events.newEvent.lat" ng-model="events.newEvent.lat"placeholder="Event lat">
 
-            <input name="lng" type="text" class="form-control" ng-model="events.newEvent.lng" ng-model="events.newEvent.lng"placeholder="Event lng">
+            <input name="lng" type="text" class="hidden" ng-model="events.newEvent.lng" ng-model="events.newEvent.lng"placeholder="Event lng">
 
             <input type="submit" class="btn btn-default" value="Create">
 

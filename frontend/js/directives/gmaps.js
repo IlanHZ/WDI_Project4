@@ -14,7 +14,6 @@ function MapController($resource) {
 
   // get all the events 
   this.mapEventMarkers = Event.query(); 
-  console.log("mapEventMarkers", this.mapEventMarkers)
 
   // set the center of the map
   this.mapCenter = {lat: 51.5074, lng: 0.1278};
@@ -67,18 +66,16 @@ function InitMap(Location, tokenService) {
             //   console.log("Current latitude :", pos.coords.latitude);
             //   console.log("Current longitude :", pos.coords.longitude);
             // });
-            console.log(marker.title)
+            console.log("marker.name",marker.organizer)
             // Create an infowindow for the events markers
             var eventInfoWindow = new google.maps.InfoWindow({
-
+              // set the position to be same as the event marker
               position: latLng,
-              // content: "<p>Event:" + marker.title + "</p>"
-              content:"Event:" + marker.title
+              // set the content of the infowindow
+              content: marker.title  + "</br> organizer: " + marker.organizer
 
             });
            
-
-            
             var marker = new google.maps.Marker({
               position: latLng,
               map: map,
@@ -87,21 +84,7 @@ function InitMap(Location, tokenService) {
               // draggable: true
             });
 
-
-            // var eventInfowindow = new google.maps.InfoWindow({
-            //   position: latLng,
-            //   // set a variable with the content of the event infowindow
-            //   content: "<p>Event:"+ marker.title + "</p>"
-
-            // });
-
-        
-
-            // set the content of the infowindow
-            // eventInfoWindow.setContent("Event:"+ marker.title);
-
             // on click, open the infowindow
-
             marker.addListener('click', function(){
 
               // if an other one is clicked, close the current one.
@@ -120,9 +103,9 @@ function InitMap(Location, tokenService) {
 
       // create a polyline 
       poly = new google.maps.Polyline({
-        strokeColor: '#000000',
+        strokeColor: '#00C6B8',
         strokeOpacity: 1.0,
-        strokeWeight: 3
+        strokeWeight: 3,
       });
 
       poly.setMap(map);
@@ -132,7 +115,6 @@ function InitMap(Location, tokenService) {
 
       // Handles click events on a map, and adds a new point to the Polyline.
       function addLatLng(myTravelLine) {
-        console.log("My Travel Line:", myTravelLine.latLng)
 
         var path = poly.getPath();
 
@@ -154,7 +136,7 @@ function InitMap(Location, tokenService) {
         var circle = new google.maps.Circle({
           map: map,
           radius: 100000,    // 10 miles in metres
-          fillColor: '#AA0000'
+          fillColor: '#00C6B8',
         });
 
         circle.bindTo('center', marker, 'position');
@@ -164,7 +146,7 @@ function InitMap(Location, tokenService) {
         allEventsMarker.forEach(function(marker) {
 
           // isLocationOnEdge(point:LatLng, poly:Polygon|Polyline, tolerance?:number)
-          if (google.maps.geometry.poly.isLocationOnEdge(marker.getPosition(), poly, 1)) {
+          if (google.maps.geometry.poly.isLocationOnEdge(marker.getPosition(), poly, 3)) {
 
             console.log("In the radius");
             marker.setMap(map);
@@ -181,6 +163,7 @@ function InitMap(Location, tokenService) {
 
     // get the informations on the user from the token (facbook login)    
     this.currentUser = tokenService.getUser();
+    console.log(this.currentUser)
 
     // set the infowindow variable for the user
     var userInfowindow = new google.maps.InfoWindow({

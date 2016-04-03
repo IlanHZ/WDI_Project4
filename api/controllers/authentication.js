@@ -45,7 +45,7 @@ function facebook(req, res) {
               name: profile.name,
               picture: profile.picture.data.url,
               email: profile.email,
-              
+              // age_range: profile.age_range
             });
           }
           // either way, we save the user record

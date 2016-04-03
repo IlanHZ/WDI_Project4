@@ -18,8 +18,6 @@ function EventsController($resource, tokenService, Location, $scope) {
   //   var userCurrentLongitude = pos.coords.longitude
   // });
 
-  console.log(userCurrentLatitude)
-
 
   // this.currentUser = tokenService.getUser();
   
