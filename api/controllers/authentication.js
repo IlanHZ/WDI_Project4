@@ -1,6 +1,6 @@
 var request = require('request-promise');
 var jwt = require('jsonwebtoken');
-var User = require('../models/user');
+var User = require('../models/User');
 var config = require('../config/app');
 var oauth = require('../config/oauth');
 
@@ -63,6 +63,7 @@ function facebook(req, res) {
       return res.status(500).json({ error: err });
     });
 }
+
 
 
 module.exports = {

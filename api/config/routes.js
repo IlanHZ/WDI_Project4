@@ -3,32 +3,32 @@ var authController = require('../controllers/authentication');
 
 router.post('/auth/facebook', authController.facebook);
 
-// var usersController = require('../controllers/users');
+var usersController = require('../controllers/users');
 var eventsController = require('../controllers/events');
 
 
 // USERS // 
 
-// http://127.0.0.1:3000/users
-// router.route('/users')
+http://127.0.0.1:3000/users
+router.route('/users')
 
-//   //GET all users
-//   .get(usersController.getAll)
+  //GET all users
+  .get(usersController.getAll)
 
-//   //POST a new user
-//   .post(usersController.createUser);
+  //POST a new user
+  .post(usersController.createUser);
 
 
-// router.route('/users/:id')
+router.route('/users/:id')
 
-//   // GET return specific user
-//   .get(usersController.getUser)
+  // GET return specific user
+  .get(usersController.getUser)
 
-//   // PATCH update existing user
-//   .patch(usersController.updateUser)
+  // PATCH update existing user
+  .patch(usersController.updateUser)
 
-//   // DELETE remove specific user from DB
-//   .delete(usersController.removeUser);
+  // DELETE remove specific user from DB
+  .delete(usersController.removeUser);
 
 // EVENTS //
 

@@ -19,6 +19,9 @@
   <!--   bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
+  <link href='https://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+
 
   <!-- Internal Modules -->
   <!-- JAVASCRIPT -->
@@ -28,22 +31,25 @@
   <script src="/js/services/token.js"></script>
   <script src="/js/directives/gmaps.js"></script>
   <script src="/js/services/location.js"></script>
-  <!--   <script src="/js/controllers/usersController.js"></script> -->
+  <script src="/js/controllers/usersController.js"></script>
   <script src="/js/controllers/eventsController.js"></script>
   <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body ng-controller="MainController as main">
+  
   <div class="container">
 
-    <nav class="navbar navbar-default">
+    <nav class="navbar ">
       <ul class="nav navbar-nav">
-        <li><button class="btn btn-default navbar-btn" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false">Login</button></li>
-        <li><button class="btn btn-default navbar-btn" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false">Create an Events</button></li>
-        <li><button class="btn btn-default navbar-btn" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false">Global Chat</button></li>
+        <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false">Login</li>
+        <li id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false">Adventure</li>
+        <li id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false">Community</li>
       </ul>
     </nav>
+
+    
     <h1>Mappers</h1>
 
 <!--     GLOBAL CHAT -->
@@ -53,7 +59,8 @@
       <div ng-hide="main.hasSetUsername">
         <form ng-submit="main.setUsername()">
           <div class="form-group">
-            <input ng-model="main.username" class="form-control" placeholder="username">
+            Logged in as:
+            <input readonly="readonly" ng-model="main.username" class="form-control" placeholder="username">
           </div>
           <button class="btn btn-primary">Start Chatting</button>
         </form>
@@ -96,9 +103,8 @@
 
     <section ng-controller="EventsController as events">
       <div class="eventsForm" ng-show="showEventsForm">
-        <h2>Events </h2> 
-        <h2>Create Event</h2>
-
+   <!--      <h2>Create Event</h2>
+ -->
         <div class="form-group">
 
           <form ng-submit="events.addEvent(events.newEvent)" enctype="multipart/form-data" id="event">

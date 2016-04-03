@@ -1,68 +1,68 @@
-// var User = require('../models/User');
+var User = require('../models/User');
 
-// // GET
-// function getAll(request, response) {
-//   User.find(function(error, users) {
-//     if(error) response.status(404).send(error);
-//     response.status(200).send(users);
-//   }).select('-__v');
-// }
+// GET
+function getAll(request, response) {
+  User.find(function(error, users) {
+    if(error) response.status(404).send(error);
+    response.status(200).send(users);
+  }).select('-__v');
+}
 
-// // POST
-// function createUser(request, response) {
-//   var user = new User(request.body);
+// POST
+function createUser(request, response) {
+  var user = new User(request.body);
 
-//   user.save(function(error) {
-//     if(error) response.status(500).send(error);
-//     response.status(201).send(user);
-//   });
-// }
+  user.save(function(error) {
+    if(error) response.status(500).send(error);
+    response.status(201).send(user);
+  });
+}
 
-// // GET
-// function getCriminal(request, response) {
-//   var id = request.params.id;
+// GET
+function getUser(request, response) {
+  var id = request.params.id;
 
-//   Criminal.findById({_id: id}, function(error, criminal) {
-//     if(error) response.status(404).send(error);
-//     response.status(200).send(criminal);
-//   }).select('-__v');
-// }
+  User.findById({_id: id}, function(error, user) {
+    if(error) response.status(404).send(error);
+    response.status(200).send(user);
+  }).select('-__v');
+}
 
-// function updateUser(request, response) {
-//   var id = request.params.id;
+function updateUser(request, response) {
+  var id = request.params.id;
 
-//   User.findById({_id: id}, function(error, user) {
-//     if(error) response.status(404).send(error);
+  User.findById({_id: id}, function(error, user) {
+    if(error) response.status(404).send(error);
 
-//     if(request.body.name) user.name = request.body.name;
-//     if(request.body.location) user.location = request.body.location;
-//     if(request.body.status) user.status = request.body.status;
+    if(request.body.name) user.name = request.body.name;
+    if(request.body.location) user.location = request.body.location;
+    if(request.body.status) user.status = request.body.status;
 
-//     user.save(function(error) {
-//       if(error) response.status(500).send(error);
+    user.save(function(error) {
+      if(error) response.status(500).send(error);
 
-//       response.status(200).send(user);
-//     });
-//   }).select('-__v');
-// }
+      response.status(200).send(user);
+    });
+  }).select('-__v');
+}
 
-// function removeUser(request, response) {
-//   var id = request.params.id;
-//   console.log("ID passed to removeUser: ", id);
+function removeUser(request, response) {
+  var id = request.params.id;
+  console.log("ID passed to removeUser: ", id);
 
-//   User.remove({_id: id}, function(error) {
-//     if(error) response.status(404).send(error);
+  User.remove({_id: id}, function(error) {
+    if(error) response.status(404).send(error);
 
-//     response.status(204).send();
-//   }).select('-__v');
-// }
+    response.status(204).send();
+  }).select('-__v');
+}
 
-// module.exports = {
-//   getAll: getAll,
-//   createUser: createUser,
-//   getUser: getUser,
-//   updateUser: updateUser,
-//   removeUser: removeUser
-// };
+module.exports = {
+  getAll: getAll,
+  createUser: createUser,
+  getUser: getUser,
+  updateUser: updateUser,
+  removeUser: removeUser
+};
 
 

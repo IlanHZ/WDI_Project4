@@ -36,10 +36,9 @@ self.messages = [];
 
 self.message = null;
 
-// self.hasSetUsername = false;
+self.hasSetUsername = false;
 
-self.username =  this.currentUser.name ;
-
+self.username =  this.currentUser.name;
 
 self.setUsername = function() {
   if(self.username.length > 2) self.hasSetUsername = true;
