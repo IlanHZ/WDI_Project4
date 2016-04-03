@@ -7,6 +7,9 @@ var app = express();
 var router = require('./config/routes');
 var config = require('./config/app');
 
+app.use(express.static(__dirname + '/public'));
+
+
 // hook sockets into it
 var server  = require('http').createServer(app);
 var io      = require('socket.io')(server);
@@ -31,8 +34,6 @@ io.on('connect', function(socket) {
     io.emit('message', message)
   });
 });
-
-
 
 
 app.listen(config.port, function() {
