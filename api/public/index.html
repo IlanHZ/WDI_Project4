@@ -43,19 +43,20 @@
 
     <nav class="navbar ">
       <ul class="nav navbar-nav">
-        <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false">Login</li>
-        <li id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false">Adventure</li>
-        <li id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false">Community</li>
+        <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false; showUsers=false">Login</li>
+        <li id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false; showUsers=false">Adventure</li>
+        <li id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false; showUsers=false">Chat</li>
+<!--         <li id="navLi" ng-click="showUsers=true; showGlobalChat=false; showEventsForm=false; showLoginForm=false">Community</li> -->
       </ul>
     </nav>
 
     
-    <h1>Mappers</h1>
+    <h1>Mappers.</h1>
 
 <!--     GLOBAL CHAT -->
 
     <div class="globalChat" ng-show="showGlobalChat">
-    <h2>Mappers Global Chat</h2>
+<!--     <h2>Mappers Global Chat</h2> -->
       <div ng-hide="main.hasSetUsername">
         <form ng-submit="main.setUsername()">
           <div class="form-group">
@@ -144,11 +145,15 @@
           </ul> -->
         </div>
       </section>
+<!--       <section ng-controller="UsersController as users"> -->
+        <ul  ng-show="showUsers">
+          <li ng-click="" ng-repeat="user in users.all" data-id="{{user._id}}">
+            <strong>{{user.name}}</strong> 
+          </li>
+        </ul>
+<!--       </section> -->
 
-      <div >
-
-      </div>
-    </div>
+  </div>
 
 
     <!--   MAP -->

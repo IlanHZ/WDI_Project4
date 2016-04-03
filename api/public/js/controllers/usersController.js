@@ -3,10 +3,15 @@ angular
   .controller('UsersController', UsersController);
 
 
-UsersController.$inject = ['User', '$resource'];
-function UsersController(User, $resource) {
+UsersController.$inject = ['$resource'];
+function UsersController($resource) {
+
+  var User = $resource("http://localhost:3000/users/:id", { id: '@_id' }, { update: {method: 'PUT'}});
+
   // CRUD
   this.all = User.resource.query();
+
+
 
   this.createUser = function(){
     User.resource.save(self.newUser, function(res){
