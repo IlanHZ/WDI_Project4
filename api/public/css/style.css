@@ -139,7 +139,7 @@ button {
 /*CHAT*/
 
 #message-panel {
-  height: calc(80vh - 50px);
+  height: calc(44vh - 45px);
   border: 1px solid #ddd;
   margin-bottom: 20px;
   border-radius: 4px;

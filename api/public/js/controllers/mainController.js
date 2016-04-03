@@ -9,33 +9,6 @@ function MainController($auth, tokenService, $window, $scope) {
   
   var socket = $window.io();
 
-  // SOCKET
-  self.messages = [];
-
-  self.message = null;
-
-  self.hasSetUsername = false;
-
-  self.username = "";
-
-  self.setUsername = function() {
-    if(self.username.length > 2) self.hasSetUsername = true;
-  }
-
-    // Push the message into the array once recieved by the server
-    socket.on('message', function(message) {
-      // 
-      $scope.$applyAsync(function() {
-        self.messages.push(message);
-      });
-    });
-
-    // update the sendMessage function
-    self.sendMessage = function() {
-      socket.emit('message', { text: self.message, username: self.username });
-      self.message = null;
-    }
-
 
   // LOGIN
   this.isLoggedIn = function() {
@@ -56,5 +29,36 @@ function MainController($auth, tokenService, $window, $scope) {
     tokenService.removeToken();
     this.currentUser = null;
   }
+
+
+// SOCKET
+self.messages = [];
+
+self.message = null;
+
+// self.hasSetUsername = false;
+
+self.username =  this.currentUser.name ;
+
+
+self.setUsername = function() {
+  if(self.username.length > 2) self.hasSetUsername = true;
+}
+
+  // Push the message into the array once recieved by the server
+  socket.on('message', function(message) {
+    // 
+    $scope.$applyAsync(function() {
+      self.messages.push(message);
+    });
+  });
+
+  // update the sendMessage function
+  self.sendMessage = function() {
+    socket.emit('message', { text: self.message, username: self.username });
+    self.message = null;
+  }
+
+
 
 }
