@@ -146,7 +146,7 @@
       </section>
 
       <section ng-show="communitySection" class="communitySection" ng-controller="UsersController as users">
-        <div ng-show = "users.selectedUser">
+        <div id="showOneUser" ng-show = "users.selectedUser">
             <img id="communityUserImage" src="{{ users.selectedUser.picture }}"> {{ users.selectedUser.name }}
 
             <div>Nationality: {{ users.selectedUser.nationality }}</div>

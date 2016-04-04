@@ -52,6 +52,10 @@ ul {
   list-style-type: none;
 }
 
+#showOneUser{
+  border: 1px solid white;
+}
+
 #userProfileInfo{
   color: white;
   text-align: left;

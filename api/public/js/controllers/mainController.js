@@ -13,7 +13,8 @@ function MainController($auth, tokenService, $window, $scope) {
   // LOGIN
   this.isLoggedIn = function() {
     return !!tokenService.getToken();
-    self.username = this.currentUser.name;
+    // set the current user name if logged in
+    this.currentUser.name
   }
 
   this.currentUser = tokenService.getUser();
@@ -36,20 +37,6 @@ function MainController($auth, tokenService, $window, $scope) {
 
   self.message = null;
 
-  // self.username = this.currentUser.name;
-
-  // // Set the username for the chat
-  // self.setUsername = function() {
-  //   // if the user is logged in
-  //   if (currentUser){
-  //     // the chat username is the current user name
-  //     self.username =  this.currentUser.name;
-  //     // if not logged in
-  //   } else {
-  //     // ask to logged in before using the chat
-  //     self.username = "Please log in before using the chat";
-  //   }
-  // }
 
   // Push the message into the array once recieved by the server
   socket.on('message', function(message) {
@@ -60,7 +47,7 @@ function MainController($auth, tokenService, $window, $scope) {
 
   // update the sendMessage function
   self.sendMessage = function() {
-    socket.emit('message', { text: self.message, username: self.username });
+    socket.emit('message', { text: self.message, username: this.currentUser.name });
     self.message = null;
   }
 }
