@@ -52,10 +52,22 @@ ul {
   list-style-type: none;
 }
 
+#userProfileInfo{
+  color: white;
+  text-align: left;
+}
+
+#userProfileInfoName{
+  color: white;
+  text-align: center;
+  font-size: 25px;
+}
+
 img.profile {
-  margin-top: 40px;
+  margin-top: 2 0px;
   max-width: 125px;
-  border-radius: 100%; }
+  border-radius: 100%;
+}
 
 .container {
   padding: 40px;
@@ -100,6 +112,14 @@ img.profile {
   font-family: 'Quicksand', sans-serif;
   width: 106px;
   background-color: rgba(0,0,0,0.4);
+}
+
+#backButton {
+  border: 1px solid white;
+  color: white;
+  width: 76px;
+  height: 38px;
+  padding: 0px;
 }
 
 

@@ -31,14 +31,12 @@ function UsersController($resource, tokenService) {
   };
 
   this.updateUser = function(){
-    console.log(self.currentUser._id)
-    console.log("update", self.currentUser);
     var user = self.currentUser;
-
-    User.update({ id: self.currentUser._id }, user, function(res){
-      console.log("Response from update user request: ", res)
-      console.log("user updated")
+    console.log(user)
+    var newUser = User.update({ id: user._id }, {user: user}, function(res){
+      console.log("user updated");
     });
+    // console.log(newUser);
   }
 
   this.deleteUser = function(user){
