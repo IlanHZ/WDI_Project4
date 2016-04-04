@@ -59,13 +59,7 @@ function InitMap(Location, tokenService) {
           markers.forEach(function(marker, event) {
 
             var latLng = new google.maps.LatLng(marker.lat, marker.lng);
-
-
-            // get the geolocation from the promise
-            // Location.get().then(function(pos){
-            //   console.log("Current latitude :", pos.coords.latitude);
-            //   console.log("Current longitude :", pos.coords.longitude);
-            // });
+            
             console.log("marker.name",marker.organizer)
             // Create an infowindow for the events markers
             var eventInfoWindow = new google.maps.InfoWindow({

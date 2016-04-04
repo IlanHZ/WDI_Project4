@@ -10,7 +10,8 @@ var userSchema = mongoose.Schema({
   from: Date,
   to: Date,
   type: String,
-  description: String
+  description: String,
+  lastKnownLocation: mongoose.Schema.Types.Mixed
 });
 
 module.exports = mongoose.model('User', userSchema);

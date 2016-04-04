@@ -278,7 +278,7 @@ button {
 
 #message-panel ul li.me {
   text-align: right;
-  background-color: rgba(0, 221, 0, 0.6);
+  background-color: rgba(0, 221, 0, 0.6) !important;
 }
 
 .form-inline .form-group {
