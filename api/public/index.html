@@ -53,27 +53,12 @@
     
         <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false; showUsers=false">Chat</li>
      
-<!--         <li id="navLi" ng-click="showUsers=true; showGlobalChat=false; showEventsForm=false; showLoginForm=false">Community</li> -->
+        <li id="navLi" ng-click="showUsers=true; showGlobalChat=false; showEventsForm=false; showLoginForm=false">Community</li>
       </ul>
     </nav>
     
     <h1>Mappers.</h1>
 
-<!--     GLOBAL CHAT -->
-    
-    <!-- <div class="globalChat" ng-show="showGlobalChat"> -->
-<!--     <h2>Mappers Global Chat</h2> -->
-<!--       <div ng-hide="main.hasSetUsername">
-        <form ng-submit="main.setUsername()">
-          <div class="form-group">
-            Logged in as:
-            <input readonly="readonly" ng-model="main.username" class="form-control" id="loggedAs" placeholder="username">
-          </div>
-          <button class="btn btn-primary">Start Chatting</button>
-        </form>
-      </div> -->
-
-      <!-- <div ng-show="main.hasSetUsername"> -->
       <div class="globalChat" ng-show="showGlobalChat">
         <div id="message-panel">
           <ul>
@@ -153,10 +138,11 @@
         </div>
 
       </section>
-      <section ng-controller="UsersController as users">
+      <section class="communitySection" ng-controller="UsersController as users">
+      <h2>All users</h2>
         <ul  ng-show="showUsers">
-          <li ng-repeat="user in users.all" data-id="{{user._id}}">
-            <strong>{{user.name}}</strong> 
+          <li ng-repeat="user in users.all">
+            <strong> <img id="communityUserImage" src="{{ user.picture }}"> {{user.name}} </strong> 
           </li>
         </ul>
       </section>

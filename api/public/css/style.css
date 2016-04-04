@@ -48,6 +48,10 @@ body {
 /*  color: white;*/
   }
 
+ul {
+  list-style-type: none;
+}
+
 img.profile {
   margin-top: 40px;
   max-width: 125px;
@@ -173,6 +177,18 @@ button {
   font-weight: 100;
   font-size: 20px;
   color: black;
+}
+
+.communitySection {
+  color: white;
+  margin-left: 0;
+  float: left;
+}
+
+#communityUserImage {
+  border-radius: 50%;
+  height: 80px;
+
 }
 
 .gm-svpc{
