@@ -48,12 +48,12 @@
 
     <nav class="navbar ">
       <ul class="nav navbar-nav">
-        <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false; showUsers=false">Login</li>
-        <li id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false; showUsers=false">Adventure</li>
+        <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false">Login</li>
+        <li id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false; showUsers=false; communitySection=false">Adventure</li>
     
-        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false; showUsers=false">Chat</li>
+        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false; showUsers=false; communitySection=false">Chat</li>
      
-        <li id="navLi" ng-click="showUsers=true; showGlobalChat=false; showEventsForm=false; showLoginForm=false">Community</li>
+        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="communitySection=true; showGlobalChat=false; showEventsForm=false; showLoginForm=false">Community</li>
       </ul>
     </nav>
     
@@ -138,9 +138,10 @@
         </div>
 
       </section>
-      <section class="communitySection" ng-controller="UsersController as users">
+      
+      <section ng-show="communitySection" class="communitySection" ng-controller="UsersController as users">
       <h2>All users</h2>
-        <ul  ng-show="showUsers">
+        <ul>
           <li ng-repeat="user in users.all">
             <strong> <img id="communityUserImage" src="{{ user.picture }}"> {{user.name}} </strong> 
           </li>

@@ -13,6 +13,7 @@ function MainController($auth, tokenService, $window, $scope) {
   // LOGIN
   this.isLoggedIn = function() {
     return !!tokenService.getToken();
+    self.username = this.currentUser.name;
   }
 
   this.currentUser = tokenService.getUser();
@@ -35,7 +36,7 @@ function MainController($auth, tokenService, $window, $scope) {
 
   self.message = null;
 
-  self.username =  this.currentUser.name;
+  // self.username = this.currentUser.name;
 
   // // Set the username for the chat
   // self.setUsername = function() {
