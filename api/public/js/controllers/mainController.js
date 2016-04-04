@@ -9,7 +9,6 @@ function MainController($auth, tokenService, $window, $scope) {
   
   var socket = $window.io();
 
-
   // LOGIN
   this.isLoggedIn = function() {
     return !!tokenService.getToken();
@@ -30,7 +29,6 @@ function MainController($auth, tokenService, $window, $scope) {
     tokenService.removeToken();
     this.currentUser = null;
   }
-
 
   // SOCKET
   self.messages = [];

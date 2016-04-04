@@ -247,7 +247,6 @@ button {
 #message-panel ul {
   margin: 0;
   padding: 0;
-
   list-style: none;
   position: absolute;
   bottom: 0;
@@ -258,21 +257,23 @@ button {
   padding: 3px 12px;
   width: calc(100% - 8px);
   border-radius: 4px;
-  background-color: #eee;
+  background-color: #4E639C;
   margin: 4px;
 }
 
 #message-panel ul li span.message {
   display: inline-block;
   width: 75%;
+  color: white;
 }
 
 #message-panel ul li span.username {
   display: inline-block;
   width: calc(25% - 4px);
   text-align: right;
-  color: #bbb;
+  color: white;
   font-weight: 600;
+  font-style: italic;
 }
 
 #message-panel ul li.me {
