@@ -138,14 +138,23 @@
         </div>
 
       </section>
-      
+
       <section ng-show="communitySection" class="communitySection" ng-controller="UsersController as users">
       <h2>All users</h2>
         <ul>
-          <li ng-repeat="user in users.all">
+          <li ng-repeat="user in users.all" data-id="{{ user._id }}" ng-click="users.selectUser(user)">
             <strong> <img id="communityUserImage" src="{{ user.picture }}"> {{user.name}} </strong> 
+            <button ng-click="showFullProfile=true" class="btnProfile">profile</button>
           </li>
         </ul>
+
+        <div ng-show = "users.selectedUser">
+          <h2>Full profile</h2>
+            {{ users.selectedUser.name }}
+        </div>
+
+
+
       </section>
 
   </div>

@@ -6,11 +6,21 @@ angular
 UsersController.$inject = ['$resource'];
 function UsersController($resource) {
 
+
+  var self = this;
+
   var User = $resource("http://localhost:3000/users/:id", { id: '@_id' }, { update: {method: 'PUT'}});
+
+
+  // show a clicked user
+   this.selectUser = function(user) {
+    console.log("clicked")
+     self.selectedUser = User.get({id: user._id});
+   };
+
 
   // CRUD
   this.all = User.query();
-
 
 
   this.createUser = function(){
