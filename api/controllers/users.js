@@ -30,20 +30,15 @@ function getUser(request, response) {
 
 function updateUser(request, response) {
   var id = request.params.id;
-
-  User.findById({_id: id}, function(error, user) {
+  console.log(request.body.user)
+  User.findByIdAndUpdate({_id: id}, request.body.user, function(error, user) {
     if(error) response.status(404).send(error);
 
-    if(request.body.name) user.name = request.body.name;
-    if(request.body.location) user.location = request.body.location;
-    if(request.body.status) user.status = request.body.status;
-
-    user.save(function(error) {
-      if(error) response.status(500).send(error);
-
+    // user.save(function(error) {
+    //   if(error) response.status(500).send(error);
       response.status(200).send(user);
-    });
-  }).select('-__v');
+    // });
+  })
 }
 
 function removeUser(request, response) {

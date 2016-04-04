@@ -54,7 +54,7 @@ function facebook(req, res) {
     })
     .then(function(user) {
       // step 4, we create a JWT and send it back to our angular app
-      var payload = { _id: user._id, name: user.name, picture: user.picture };
+      var payload = { _id: user._id, name: user.name, picture: user.picture, email: user.email };
       var token = jwt.sign(payload, config.secret, { expiresIn: '24h' });
       return res.send({ token: token, user: payload });
     })

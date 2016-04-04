@@ -48,12 +48,17 @@
 
     <nav class="navbar ">
       <ul class="nav navbar-nav">
-        <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false">Login</li>
-        <li id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false; showUsers=false; communitySection=false">Adventure</li>
+
+        <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false; showProfile=false">Login</li>
+
+        <li id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false; showUsers=false; communitySection=false; showProfile=false">Adventure</li>
     
-        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false; showUsers=false; communitySection=false">Chat</li>
+        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false; showUsers=false; communitySection=false; showProfile=false">Chat</li>
      
-        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="communitySection=true; showGlobalChat=false; showEventsForm=false; showLoginForm=false">Community</li>
+        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="communitySection=true; showGlobalChat=false; showEventsForm=false; showLoginForm=false; showProfile=false">Community</li>
+
+        <li id="navLi" ng-click="showProfile=true; showLoginForm=false; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false">Profile</li>
+
       </ul>
     </nav>
     
@@ -140,23 +145,65 @@
       </section>
 
       <section ng-show="communitySection" class="communitySection" ng-controller="UsersController as users">
-      <h2>All users</h2>
-        <ul>
-          <li ng-repeat="user in users.all" data-id="{{ user._id }}" ng-click="users.selectUser(user)">
-            <strong> <img id="communityUserImage" src="{{ user.picture }}"> {{user.name}} </strong> 
-            <button ng-click="showFullProfile=true" class="btnProfile">profile</button>
-          </li>
-        </ul>
-
         <div ng-show = "users.selectedUser">
-          <h2>Full profile</h2>
             {{ users.selectedUser.name }}
         </div>
 
-
-
+        <ul>
+          <li ng-repeat="user in users.all" data-id="{{ user._id }}" ng-click="users.selectUser(user)">
+            <strong> <img id="communityUserImage" src="{{ user.picture }}"> {{user.name}} </strong> 
+          </li>
+        </ul>
       </section>
 
+      <section ng-show="showProfile" ng-controller="UsersController as users">
+        <h2>My profile<h2>
+          <img ng-src="{{ main.currentUser.picture }}" class="profile"><br>
+          {{ main.currentUser.name }}<br>
+          Nationality:
+          {{ users.currentUser.nationality }}<br>
+          Travelling in : {{ users.currentUser.region }}<br>
+          From:  {{ users.currentUser.from}}<br>
+          To :{{ users.currentUser.to }}<br>
+          Type :{{ users.currentUser.type }}<br>
+          More :{{ users.currentUser.description }}<br>
+          <h2>Edit</h2>
+
+            <form ng-submit="users.updateUser()">
+              <div class="form-group">
+                <input type="text" ng-model="users.currentUser.nationality" placeholder="nationality">
+              </div>
+              <div class="form-group">
+                Region:
+                <select ng-model="users.currentUser.region">
+                  <option value="africa">Africa</option>
+                  <option value="asia">Asia</option>
+                  <option value="central_america">Central America</option>
+                  <option value="eastern_europe">Eastern Europe</option>
+                  <option value="european_union">European Union</option>
+                  <option value="middle_east">Middle East</option>
+                  <option value="north_america">North America</option>
+                  <option value="south_america">South America</option>
+                  <option value="carribean">The Carribean</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <input type="date" ng-model="users.currentUser.from" placeholder="Starting date of travel">
+              <div>
+              <div class="form-group">
+                <input type="date" ng-model="users.currentUser.to" placeholder="Ending date of travel">
+              <div>
+              <div class="form-group">
+                <input type="text" ng-model="users.currentUser.type" placeholder="Type of traveler">
+              <div>
+              <div class="form-group">
+                <textarea ng-model="users.currentUser.description" placeholder="More about you"></textarea> 
+              <div>
+              
+              <input type="submit" value="Update">
+
+            </form>
+      </section>
   </div>
 
 
@@ -172,7 +219,12 @@
 
 
 
-
+  nationalty: String,
+  region: String,
+  from: Date,
+  to: Date,
+  type: String,
+  description: String
 
 
 

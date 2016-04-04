@@ -23,8 +23,8 @@ router.route('/users/:id')
   // GET return specific user
   .get(usersController.getUser)
 
-  // PATCH update existing user
-  .patch(usersController.updateUser)
+  // PUT update existing user
+  .put(usersController.updateUser)
 
   // DELETE remove specific user from DB
   .delete(usersController.removeUser);

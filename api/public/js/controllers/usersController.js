@@ -3,9 +3,10 @@ angular
   .controller('UsersController', UsersController);
 
 
-UsersController.$inject = ['$resource'];
-function UsersController($resource) {
+UsersController.$inject = ['$resource','tokenService'];
+function UsersController($resource, tokenService) {
 
+  this.currentUser = tokenService.getUser();
 
   var self = this;
 
@@ -14,8 +15,8 @@ function UsersController($resource) {
 
   // show a clicked user
    this.selectUser = function(user) {
-    console.log("clicked")
      self.selectedUser = User.get({id: user._id});
+     console.log(self.selectedUser)
    };
 
 
@@ -29,8 +30,14 @@ function UsersController($resource) {
     });
   };
 
-  this.updateUser = function(user){
-    User.resource.update(user, function(res){
+  this.updateUser = function(){
+    console.log(self.currentUser._id)
+    console.log("update", self.currentUser);
+    var user = self.currentUser;
+
+    User.update({ id: self.currentUser._id }, user, function(res){
+      console.log("Response from update user request: ", res)
+      console.log("user updated")
     });
   }
 
