@@ -9,7 +9,6 @@ var eventsController = require('../controllers/events');
 
 // USERS // 
 
-http://127.0.0.1:3000/users
 router.route('/users')
 
   //GET all users

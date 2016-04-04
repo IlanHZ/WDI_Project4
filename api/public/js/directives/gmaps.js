@@ -165,14 +165,15 @@ function InitMap(Location, tokenService) {
     this.currentUser = tokenService.getUser();
     console.log(this.currentUser)
 
+    // if there is a current user
+    if(this.currentUser){
     // set the infowindow variable for the user
     var userInfowindow = new google.maps.InfoWindow({
 
       // set a variable with the content of the users infowindow
       content: "<img id='userInfoWindowImage' src=" + this.currentUser.picture + "></img>" + "<p id='userInfoWindowName'>" + this.currentUser.name + "</p>"
-
     });
-
+    } 
 
     var myCurrentPosition = new google.maps.Marker({
       map: map,

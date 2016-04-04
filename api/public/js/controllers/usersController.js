@@ -9,7 +9,7 @@ function UsersController($resource) {
   var User = $resource("http://localhost:3000/users/:id", { id: '@_id' }, { update: {method: 'PUT'}});
 
   // CRUD
-  this.all = User.resource.query();
+  this.all = User.query();
 
 
 
