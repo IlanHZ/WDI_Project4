@@ -31,7 +31,7 @@ function UsersController($resource, tokenService, User, Location) {
     });
   };
 
-  // UPDATE
+  // UPDATE 
   this.updateUser = function(){
     var user = self.currentUser;
     console.log(user)

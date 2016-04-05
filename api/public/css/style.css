@@ -48,6 +48,10 @@ body {
   /*color: white;*/
   }
 
+label {
+  color: white;
+}
+
 ul {
   list-style-type: none;
 }

@@ -70,12 +70,14 @@ function InitMap(Location, tokenService, User) {
             var latLng = new google.maps.LatLng(marker.lat, marker.lng);
 
             console.log("marker.name",marker.organizer)
+            console.log("marker.moreInformations",marker.moreInformations)
+
             // Create an infowindow for the events markers
             var eventInfoWindow = new google.maps.InfoWindow({
               // set the position to be same as the event marker
               position: latLng,
               // set the content of the infowindow
-              content: marker.title  + "</br> organizer: " + marker.organizer
+              content: marker.title  + "</br> organizer: " + marker.organizer + "</br>" + marker.moreInformations
             });
            
             var marker = new google.maps.Marker({
@@ -137,7 +139,7 @@ function InitMap(Location, tokenService, User) {
         // Add circle overlay and bind to marker
         var circle = new google.maps.Circle({
           map: map,
-          radius: 100000,    // 10 miles in metres
+          radius: 10000,    // 10 miles in metres
           fillColor: '#00C6B8',
         });
 
@@ -145,20 +147,37 @@ function InitMap(Location, tokenService, User) {
 
         // isLocationOnEdge(point:LatLng, poly:Polygon|Polyline, tolerance?:number)
 
+        // display the event marker in there are on the myTravelLine
         allEventsMarker.forEach(function(marker) {
 
           // isLocationOnEdge(point:LatLng, poly:Polygon|Polyline, tolerance?:number)
-          if (google.maps.geometry.poly.isLocationOnEdge(marker.getPosition() || userMarkers.getPosition(), poly, 3)) {
+          if (google.maps.geometry.poly.isLocationOnEdge(marker.getPosition(), poly, 3)) {
 
             console.log("In the radius");
             marker.setMap(map);
 
           } else {
-
             console.log("Out of the radius");
             marker.setMap(null);
           }
         });
+
+        // display the users marker in there are on the myTravelLine
+        usersMarker.forEach(function(marker) {
+
+          // isLocationOnEdge(point:LatLng, poly:Polygon|Polyline, tolerance?:number)
+          if (google.maps.geometry.poly.isLocationOnEdge(userMarkers.position, poly, 3)) {
+
+            console.log("In the radius");
+            marker.setMap(map);
+
+          } else {
+            console.log("Out of the radius");
+            marker.setMap(null);
+          }
+        });
+
+
       } 
 
     /////////////////////////////////////  ***  USER MARKER  ***

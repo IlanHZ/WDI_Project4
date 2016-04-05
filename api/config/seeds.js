@@ -1,11 +1,13 @@
 var mongoose = require('mongoose');
 var Event = require('../models/Event');
+// var User = require('../models/User');
 
 var databaseURL = process.env.MONGOLAB_URI || 'mongodb://localhost/mappers';
 mongoose.connect(databaseURL);
 
 
 Event.collection.drop();
+// User.collection.drop();
 
 
 Event.create([{
@@ -53,6 +55,7 @@ Event.create([{
     else console.log(events);
     mongoose.connection.close()
   });
+
 
 
 

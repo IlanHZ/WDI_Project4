@@ -101,31 +101,38 @@
       </div>
     </div>
 
+    
     <section ng-controller="EventsController as events">
       <div class="eventsForm" ng-show="showEventsForm">
 
         <div class="form-group">
 
           <form ng-submit="events.addEvent(events.newEvent)" enctype="multipart/form-data" id="event">
-            
-            <input name="title"type="text" class="form-control" ng-model="events.newEvent.title" placeholder="Event title">
+            <label >Title of your new adventure:</label>
+            <input name="title"type="text" class="form-control" ng-model="events.newEvent.title" placeholder="Your new adventure">
 
+            <label >Name of the organizer:</label>
             <input name="organizer"type="text" class="form-control" ng-model="events.newEvent.organizer" placeholder="Name">
 
-            Starting Date:
+            <label >Additional informations:</label>
+            <textarea type="text" class="form-control" ng-model="events.newEvent.moreInformations" placeholder="Tell us more about this adventure!"></textarea> 
+
+            <label >Starting Date:</label>
             <input name="start_date"type="date" class="form-control" ng-model="events.newEvent.start_date" placeholder="Starting Date">
 
-            Ending Date:
+            <label >Ending Date:</label>
             <input name="end_date"type="date" class="form-control" ng-model="events.newEvent.end_date" placeholder="Ending Date">
 
+            <label >Time:</label>
             <input name="time" type="time" class="form-control" ng-model="events.newEvent.time" placeholder="Starting time">
 
+            <label >Location:</label>
             <input name="address" type="text" class="form-control" id="address"ng-model="events.newEvent.address" placeholder="address" ng-blur="events.geocode()">
 
             <input name="city" type="text" class="form-control" id="city" ng-model="events.newEvent.city"placeholder="city" ng-blur="events.geocode()">
 
             <input name="postcode" type="text" class="form-control" id="postcode" ng-model="events.newEvent.postcode" placeholder="postcode" ng-blur="events.geocode()">
-
+    
             <input name="lat" type="text" class="hidden" ng-model="events.newEvent.lat" ng-model="events.newEvent.lat"placeholder="Event lat">
 
             <input name="lng" type="text" class="hidden" ng-model="events.newEvent.lng" ng-model="events.newEvent.lng"placeholder="Event lng">

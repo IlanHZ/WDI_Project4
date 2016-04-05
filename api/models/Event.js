@@ -13,7 +13,8 @@ var eventSchema = mongoose.Schema({
   address: String,
   postcode: String,
   lat: String,
-  lng: String
+  lng: String,
+  moreInformations: String
 });
 
 module.exports = mongoose.model('Event', eventSchema);
