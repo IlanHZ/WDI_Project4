@@ -93,7 +93,10 @@ img.profile {
 .infoWindow {
   background-color: red;
 }
-
+.nav {
+  position: fixed;
+  top: 0px;
+}
 #navLi {
   color: white;
   border: 5px solid white;

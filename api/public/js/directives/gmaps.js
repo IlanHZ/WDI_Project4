@@ -19,7 +19,7 @@ function MapController($resource) {
   this.mapCenter = {lat: 51.5074, lng: 0.1278};
 }
 
-InitMap.$inject = ["Location", 'tokenService'];
+InitMap.$inject = ['Location', 'tokenService'];
 function InitMap(Location, tokenService) {
 
   return {
@@ -33,7 +33,7 @@ function InitMap(Location, tokenService) {
 
     link: function(scope, $element, attr) {
 
-      // get the geolocation from the promise
+      // get the geolocation from the promise/Location-Service, location of the current user
       Location.get().then(function(pos){
         console.log("Current latitude :", pos.coords.latitude);
         console.log("Current longitude :", pos.coords.longitude);
@@ -59,7 +59,7 @@ function InitMap(Location, tokenService) {
           markers.forEach(function(marker, event) {
 
             var latLng = new google.maps.LatLng(marker.lat, marker.lng);
-            
+
             console.log("marker.name",marker.organizer)
             // Create an infowindow for the events markers
             var eventInfoWindow = new google.maps.InfoWindow({
@@ -155,9 +155,9 @@ function InitMap(Location, tokenService) {
 
     // *** Geolocation ***
 
-    // get the informations on the user from the token (facbook login)    
+    // get the informations on the user from the token (facebook login)    
     this.currentUser = tokenService.getUser();
-    console.log(this.currentUser)
+    console.log("CurrentUser:", this.currentUser)
 
     // if there is a current user
     if(this.currentUser){
