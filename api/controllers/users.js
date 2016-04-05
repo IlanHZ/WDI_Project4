@@ -1,5 +1,6 @@
 var User = require('../models/User');
 
+
 // GET
 function getAll(request, response) {
   User.find(function(error, users) {

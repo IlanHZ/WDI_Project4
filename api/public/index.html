@@ -149,12 +149,12 @@
         <div id="showOneUser" ng-show = "users.selectedUser">
             <img id="communityUserImage" src="{{ users.selectedUser.picture }}"> {{ users.selectedUser.name }}
 
-            <div>Nationality: {{ users.selectedUser.nationality }}</div>
-            <div>Travelling in : {{ users.selectedUser.region }}</div>
-            <div>From:  {{ users.selectedUser.from }}</div>
-            <div>To :{{ users.selectedUser.to }}</div>
-            <div>Type :{{ users.selectedUser.type }}</div>
-            <div>More :{{ users.selectedUser.description }}</div>
+            <div id="userProfileInfo" >Nationality: {{ users.selectedUser.nationality }}</div>
+            <div id="userProfileInfo" >Travelling in : {{ users.selectedUser.region }}</div>
+            <div id="userProfileInfo" >From:  {{ users.selectedUser.from }}</div>
+            <div id="userProfileInfo" >To :{{ users.selectedUser.to }}</div>
+            <div id="userProfileInfo" >Type :{{ users.selectedUser.type }}</div>
+            <div id="userProfileInfo" >More :{{ users.selectedUser.description }}</div>
 
             <button id="backButton" ng-click="users.selectedUser=false">Back</button>
         </div>
@@ -168,7 +168,7 @@
 
       <section ng-show="showProfile" ng-controller="UsersController as users">
  
-          <img ng-src="{{ main.currentUser.picture }}" class="profile">
+          <img ng-src="{{ main.currentUser.picture }}" class="profile"><br>
           <div id="userProfileInfoName">{{ main.currentUser.name }}</div>
 
           <div id="userProfileInfo">Nationality: {{ users.currentUser.nationality }}</div>

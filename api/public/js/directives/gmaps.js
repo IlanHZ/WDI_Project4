@@ -12,24 +12,20 @@ function MapController($resource, User) {
   // ng resource to access the back-end
   var Event = $resource("http://localhost:3000/events/:id", { id: '@_id' }, { update: {method: 'PUT'}});
   
-  // access all the users through the User facory injected
+  // access all the users through the User factory injected
   var User;
 
   // get all the events 
   this.mapEventMarkers = Event.query(); 
-
-  // get all the users
-  this.mapUserMarkers = User.query();
-  console.log("mapUserMarkers",this.mapUserMarkers.lastKnownLocation)
-
-
+  console.log(this.mapEventMarkers)
+  
   // set the center of the map
   this.mapCenter = {lat: 51.5074, lng: 0.1278};
 }
 
 
-InitMap.$inject = ['Location', 'tokenService'];
-function InitMap(Location, tokenService) {
+InitMap.$inject = ['Location', 'tokenService', 'User'];
+function InitMap(Location, tokenService, User) {
 
   return {
     restrict: 'E',
@@ -37,7 +33,8 @@ function InitMap(Location, tokenService) {
     template: '<div class="google-map"></div>',
     scope: {
       center: '=',
-      markers: '='
+      markers: '=',
+      locationMarkers: '='
     },
 
     link: function(scope, $element, attr) {
@@ -47,6 +44,8 @@ function InitMap(Location, tokenService) {
         // console.log("Current latitude :", pos.coords.latitude);
         // console.log("Current longitude :", pos.coords.longitude);
       });
+
+
 
       if(!scope.center) throw new Error("You must provide a center for your map directive")
 
@@ -60,6 +59,7 @@ function InitMap(Location, tokenService) {
       var allEventsMarker = [];
 
       var currentInfoWindow;
+
 
       if(scope.markers) {
         
@@ -76,7 +76,6 @@ function InitMap(Location, tokenService) {
               position: latLng,
               // set the content of the infowindow
               content: marker.title  + "</br> organizer: " + marker.organizer
-
             });
            
             var marker = new google.maps.Marker({
@@ -162,6 +161,30 @@ function InitMap(Location, tokenService) {
         });
       } 
 
+    // USER MARKER
+
+    // get all the users
+    var userMarkers = [];
+    this.mapUsers = User.query();
+    console.log("mapUserMarkers", this.mapUsers);
+
+    this.mapUsers.$promise.then(function(users){
+      users.forEach(function(user) {
+
+        var lng = parseFloat(user.lastKnownLocation.lng);
+        var lat = parseFloat(user.lastKnownLocation.lat);
+        var position = {lat:lat, lng:lng};
+        var marker = new google.maps.Marker({
+          name: {},
+          map: map,
+          position: position
+        })
+        userMarkers.push(marker);
+        console.log(marker);
+      })
+      console.log(userMarkers);
+    })
+
     // *** Geolocation ***
 
     // get the informations on the user from the token (facebook login)    
@@ -189,6 +212,8 @@ function InitMap(Location, tokenService) {
         userInfowindow.open(map, myCurrentPosition);
 
       });
+
+      
 
       if (navigator.geolocation) {
 

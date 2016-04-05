@@ -54,7 +54,12 @@ ul {
 
 #showOneUser{
   border: 1px solid white;
+  width: 370px;
+  padding: 10px;
+  font-size: 15px;
+
 }
+
 
 #userProfileInfo{
   color: white;
