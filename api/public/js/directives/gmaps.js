@@ -14,18 +14,19 @@ function MapController($resource, User) {
   
   // access all the users through the User facory injected
   var User;
-  console.log("allUsers:", User)
 
   // get all the events 
   this.mapEventMarkers = Event.query(); 
 
   // get all the users
   this.mapUserMarkers = User.query();
-  console.log("mapUserMarkers", User.query())
+  console.log("mapUserMarkers",this.mapUserMarkers.lastKnownLocation)
+
 
   // set the center of the map
   this.mapCenter = {lat: 51.5074, lng: 0.1278};
 }
+
 
 InitMap.$inject = ['Location', 'tokenService'];
 function InitMap(Location, tokenService) {
