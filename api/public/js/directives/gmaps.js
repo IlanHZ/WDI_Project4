@@ -148,7 +148,7 @@ function InitMap(Location, tokenService, User) {
         allEventsMarker.forEach(function(marker) {
 
           // isLocationOnEdge(point:LatLng, poly:Polygon|Polyline, tolerance?:number)
-          if (google.maps.geometry.poly.isLocationOnEdge(marker.getPosition(), poly, 3)) {
+          if (google.maps.geometry.poly.isLocationOnEdge(marker.getPosition() || userMarkers.getPosition(), poly, 3)) {
 
             console.log("In the radius");
             marker.setMap(map);
@@ -161,31 +161,52 @@ function InitMap(Location, tokenService, User) {
         });
       } 
 
-    // USER MARKER
+    /////////////////////////////////////  ***  USER MARKER  ***
 
     // get all the users
     var userMarkers = [];
     this.mapUsers = User.query();
     console.log("mapUserMarkers", this.mapUsers);
 
+
     this.mapUsers.$promise.then(function(users){
       users.forEach(function(user) {
-
+        console.log("users", user.name)
         var lng = parseFloat(user.lastKnownLocation.lng);
         var lat = parseFloat(user.lastKnownLocation.lat);
         var position = {lat:lat, lng:lng};
         var marker = new google.maps.Marker({
           name: {},
           map: map,
-          position: position
-        })
+          position: position,
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+        });
+
+        var userInfoWindow = new google.maps.InfoWindow({
+          // set the position to be same as the event marker
+          position: position,
+          // set the content of the infowindow
+          content: "<img id='userInfoWindowImage' src=" + user.picture + "></img>" + "<p id='userInfoWindowName'>" + user.name + "</p>"
+        });
+
+
+        // on click, open the infowindow
+        marker.addListener('click', function(){
+
+          // if an other one is clicked, close the current one.
+          if(currentInfoWindow) currentInfoWindow.close();
+
+          currentInfoWindow = userInfoWindow;
+
+          userInfoWindow.open(map);
+        });
+
         userMarkers.push(marker);
         console.log(marker);
       })
-      console.log(userMarkers);
     })
 
-    // *** Geolocation ***
+    ///////////////////////////////////      *** Geolocation ***
 
     // get the informations on the user from the token (facebook login)    
     this.currentUser = tokenService.getUser();
@@ -212,8 +233,6 @@ function InitMap(Location, tokenService, User) {
         userInfowindow.open(map, myCurrentPosition);
 
       });
-
-      
 
       if (navigator.geolocation) {
 
