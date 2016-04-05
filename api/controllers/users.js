@@ -30,8 +30,7 @@ function getUser(request, response) {
 
 function updateUser(request, response) {
   var id = request.params.id;
-  console.log(request.body.user)
-  User.findByIdAndUpdate({_id: id}, request.body.user, function(error, user) {
+  User.findByIdAndUpdate({_id: id}, request.body, { new: true }, function(error, user) {
     if(error) response.status(404).send(error);
 
     // user.save(function(error) {

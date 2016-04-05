@@ -3,10 +3,12 @@ angular
   .controller('UsersController', UsersController);
 
 
-UsersController.$inject = ['$resource','tokenService', 'User'];
-function UsersController($resource, tokenService, User) {
+UsersController.$inject = ['$resource','tokenService', 'User', 'Location'];
+function UsersController($resource, tokenService, User, Location) {
+
 
   this.currentUser = tokenService.getUser();
+  console.log(this.currentUser)
 
   var self = this;
 
@@ -20,6 +22,7 @@ function UsersController($resource, tokenService, User) {
 
   // GET all the users
   this.all = User.query();
+  console.log("All users", this.all)
 
   // CREATE
   this.createUser = function(){
@@ -32,7 +35,7 @@ function UsersController($resource, tokenService, User) {
   this.updateUser = function(){
     var user = self.currentUser;
     console.log(user)
-    var newUser = User.update({ id: user._id }, {user: user}, function(res){
+    var newUser = User.update({ id: user._id }, user, function(res){
       console.log("user updated");
     });
   }

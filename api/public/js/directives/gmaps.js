@@ -4,16 +4,24 @@ angular
   .directive('map', InitMap);
 
 
-MapController.$inject = ["$resource"]
-function MapController($resource) {
+MapController.$inject = ["$resource", "User"]
+function MapController($resource, User) {
 
   var self = this;
 
   // ng resource to access the back-end
   var Event = $resource("http://localhost:3000/events/:id", { id: '@_id' }, { update: {method: 'PUT'}});
+  
+  // access all the users through the User facory injected
+  var User;
+  console.log("allUsers:", User)
 
   // get all the events 
   this.mapEventMarkers = Event.query(); 
+
+  // get all the users
+  this.mapUserMarkers = User.query();
+  console.log("mapUserMarkers", User.query())
 
   // set the center of the map
   this.mapCenter = {lat: 51.5074, lng: 0.1278};
@@ -35,8 +43,8 @@ function InitMap(Location, tokenService) {
 
       // get the geolocation from the promise/Location-Service, location of the current user
       Location.get().then(function(pos){
-        console.log("Current latitude :", pos.coords.latitude);
-        console.log("Current longitude :", pos.coords.longitude);
+        // console.log("Current latitude :", pos.coords.latitude);
+        // console.log("Current longitude :", pos.coords.longitude);
       });
 
       if(!scope.center) throw new Error("You must provide a center for your map directive")
