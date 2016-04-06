@@ -57,16 +57,18 @@
     <nav class="navbar ">
       <ul class="nav navbar-nav">
 
-        <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false; showProfile=false">Login</li>
+        <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false; showProfile=false; showAllEvents=false">Login</li>
 
 
-          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false;   showUsers=false; communitySection=false; showProfile=false">Adventure</li>
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false;   showUsers=false; communitySection=false; showProfile=false; showAllEvents=false">Begin an Adventure</li>
       
-          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false;  showUsers=false; communitySection=false; showProfile=false; main.selectedUserId=null; ">Chat</li>
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false;  showUsers=false; communitySection=false; showProfile=false; main.selectedUserId=null; showAllEvents=false">Chat</li>
       
-          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="communitySection=true; showGlobalChat=false; showEventsForm=false;   showLoginForm=false; showProfile=false">Community</li>
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="communitySection=true; showGlobalChat=false; showEventsForm=false;   showLoginForm=false; showProfile=false; showAllEvents=false">Community</li>
   
-          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showProfile=true; showLoginForm=false; showEventsForm=false;   showGlobalChat=false; showUsers=false; communitySection=false">Profile</li>
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showProfile=true; showLoginForm=false; showEventsForm=false;   showGlobalChat=false; showUsers=false; communitySection=false; showAllEvents=false">Profile</li>
+
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showAllEvents=true; showProfile=false; showLoginForm=false; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false">Find an Adventure</li>
   
           <li id="navLi">About</li>
 
@@ -153,13 +155,31 @@
           </form>
 
         </div>
-<!--           <ul>
-            <li ng-repeat="event in events.events" ng-click="events.selectEvent(event)">
-              {{ event.title }} // lat:{{ event.lat }} - lng: {{ event.lng }}
-              <button ng-click="event.deleteEvent(event)">Delete</button>
-            </li>
-          </ul> -->
-        </div>
+
+      </div>
+
+      <div class="showAllEvents" ng-show="showAllEvents">
+        <!-- show all events -->
+        <ul>
+          <li class="events" ng-repeat="event in events.events" ng-click="events.selectEvent(event)">
+            
+            <div id="eventInfo" >Title: {{ event.title }}</div>
+            <div id="eventInfo" >Location : {{ event.location }}</div>
+            <div id="eventInfo" >organizer:  {{event.organizer }}</div>
+            <div id="eventInfo" >type:{{ event.type }}</div>
+            <div id="eventInfo" >Starting date :{{ event.start_date }}</div>
+            <div id="eventInfo" >Ending date :{{ event.end_date }}</div>
+            <div id="eventInfo" >Time :{{ event.time }}</div>  
+            <div id="eventInfo" >Description :{{ event.description }}</div>
+            <div id="eventInfo" >More Informations :{{ event.moreInformations }}</div>    
+            <div id="eventInfo" >City :{{ event.city }}</div>  
+            <div id="eventInfo" >Address :{{ event.address }}</div>  
+            <div id="eventInfo" >Postcode :{{ event.postcode }}</div>
+
+          </li>
+        </ul>
+      </div>
+
 
       </section>
 

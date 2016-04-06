@@ -44,11 +44,11 @@ function MainController($auth, tokenService, $window, $scope, User) {
     // this.userId = $window.localStorage.getItem('userId');
 
     // id of the current user
-    this.userId = this.currentUser._id;
+    // this.userId = this.currentUser._id;
 
     this.selectedUserId = null;
 
-
+    
     this.message = "";
     this.messages = {
       global: []
