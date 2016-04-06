@@ -50,15 +50,17 @@
     <nav class="navbar ">
       <ul class="nav navbar-nav">
 
-        <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false; showProfile=false">Login</li>
+        <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false; showProfile=false; showChatRoom=false">Login</li>
 
-        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false; showUsers=false; communitySection=false; showProfile=false">Adventure</li>
+        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false; showUsers=false; communitySection=false; showProfile=false; showChatRoom=false">Adventure</li>
     
-        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false; showUsers=false; communitySection=false; showProfile=false">Chat</li>
+        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false; showUsers=false; communitySection=false; showProfile=false; showChatRoom=false">Chat</li>
      
-        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="communitySection=true; showGlobalChat=false; showEventsForm=false; showLoginForm=false; showProfile=false">Community</li>
+        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="communitySection=true; showGlobalChat=false; showEventsForm=false; showLoginForm=false; showProfile=false; showChatRoom=false">Community</li>
 
-        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showProfile=true; showLoginForm=false; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false">Profile</li>
+        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showProfile=true; showLoginForm=false; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false; showChatRoom=false">Profile</li>
+
+        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showChatRoom=true; showGlobalChat=false; showEventsForm=false; showLoginForm=false; showUsers=false; communitySection=false; showProfile=false">Chat Room</li>
 
         <li id="navLi">About</li>
 
@@ -66,6 +68,8 @@
     </nav>
     
     <h1>Mappers.</h1>
+
+      <!--     CHAT -->
 
       <div class="globalChat" ng-show="showGlobalChat">
         <div id="message-panel">
@@ -85,6 +89,33 @@
           <button class="btn btn-primary">Send</button>
         </form>
       </div>
+
+          <!-- Private ROOM -->
+      <div class="globalChat" ng-show="showChatRoom">
+        <h2>test Room</h2>
+        <div id="message-panel">
+          <ul>
+            <li ng-repeat="privateMessage in main.privateMessages track by $index" ng-class="{ me: privateMessage.username === main.username }">
+              <span class="message">{{ privateMessage.text }}</span>
+              <span class="username">{{ privateMessage.username }}</span>
+            </li>
+          </ul>
+        </div>
+        <form ng-submit="main.sendPrivateMessage()" class="form-inline">
+          <div class="form-group">
+            <input ng-model="main.privateMessage" class="form-control">
+          </div>
+
+              <button class="btn btn-primary">Send</button>
+          </form>
+
+            <form ng-submit="main.joinRoom()" class="form-inline">
+              <button class="btn btn-primary">Join Room</button>
+            </form>
+
+        </div>
+
+
 
 
     <!-- login/register form -->
@@ -227,16 +258,6 @@
 
   </body>
   </html>
-
-
-
-
-  nationalty: String,
-  region: String,
-  from: Date,
-  to: Date,
-  type: String,
-  description: String
 
 
 

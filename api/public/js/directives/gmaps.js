@@ -17,7 +17,7 @@ function MapController($resource, User) {
 
   // get all the events 
   this.mapEventMarkers = Event.query(); 
-  console.log(this.mapEventMarkers)
+  // console.log(this.mapEventMarkers)
   
   // set the center of the map
   this.mapCenter = {lat: 51.5074, lng: 0.1278};
@@ -69,8 +69,8 @@ function InitMap(Location, tokenService, User) {
 
             var latLng = new google.maps.LatLng(marker.lat, marker.lng);
 
-            console.log("marker.name",marker.organizer)
-            console.log("marker.moreInformations",marker.moreInformations)
+            // console.log("marker.name",marker.organizer)
+            // console.log("marker.moreInformations",marker.moreInformations)
 
             // Create an infowindow for the events markers
             var eventInfoWindow = new google.maps.InfoWindow({
