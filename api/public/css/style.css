@@ -192,7 +192,13 @@ button {
     margin-top: 45px;
     background: #c55151; }
     button.logout:hover {
-      background: #a63838; }
+      background: #a63838; 
+}
+
+#slideButton {
+  z-index: 1;
+  position: absolute;
+}
 
 .navbar-btn {
   margin-top: 8px;

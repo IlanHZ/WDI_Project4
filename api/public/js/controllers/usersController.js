@@ -8,7 +8,7 @@ function UsersController($resource, tokenService, User, Location) {
 
 
   this.currentUser = tokenService.getUser();
-  console.log(this.currentUser)
+  // console.log(this.currentUser)
 
   var self = this;
 

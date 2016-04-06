@@ -13,6 +13,9 @@
   <script src="/js/vendor/bluebird/js/browser/bluebird.min.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-resource.js"></script>
 
+<!-- angular animate -->
+<!--   <script src="/js/vendor/angular-animate/angular-animate.min.js"></script> -->
+
   <!-- google map drawing and geometry library -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxM36DxD-TmmCuWMML0UXBVSirOUkF42Q&signed_in=true&libraries=drawing,geometry"></script>
 
@@ -42,6 +45,7 @@
   <script src="/js/controllers/usersController.js"></script>
   <script src="/js/controllers/eventsController.js"></script>
   <script src="/js/factories/user.js"></script>
+  <script src="/js/directives/slide.js"></script>
   <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
 
@@ -77,7 +81,7 @@
         <div id="message-panel">
           <ul>
             <li ng-repeat="message in main.all track by $index" ng-class="{ me: message.username === main.username }">
-              <span class="message">{{ message}}</span>
+              <span class="message">{{ message }}</span>
               <span class="username">{{ message.username }}</span>
             </li>
           </ul>
@@ -125,10 +129,10 @@
             <textarea type="text" class="form-control" ng-model="events.newEvent.moreInformations" placeholder="Tell us more about this adventure!"></textarea> 
 
             <label >Starting Date:</label>
-            <input name="start_date"type="date" class="form-control" ng-model="events.newEvent.start_date" placeholder="Starting Date">
+            <input name="start_date" type="date" class="form-control" ng-model="events.newEvent.start_date" placeholder="Starting Date">
 
             <label >Ending Date:</label>
-            <input name="end_date"type="date" class="form-control" ng-model="events.newEvent.end_date" placeholder="Ending Date">
+            <input name="end_date" type="date" class="form-control" ng-model="events.newEvent.end_date" placeholder="Ending Date">
 
             <label >Time:</label>
             <input name="time" type="time" class="form-control" ng-model="events.newEvent.time" placeholder="Starting time">
@@ -170,14 +174,14 @@
             <div id="userProfileInfo" >Type :{{ users.selectedUser.type }}</div>
             <div id="userProfileInfo" >More :{{ users.selectedUser.description }}</div>
 
-            <!--  Direct   CHAT -->
+            <button id="backButton" ng-click="users.selectedUser=false">Back</button>
 
-            <div class="globalChat" ng-show="directChat">
+            <!--  Direct   CHAT -->
               <div id="message-panel">
-                <ul>
+                <ul id="{{users.selectedUser._id}}">
                   <li ng-repeat="message in main.all track by $index" ng-class="{ me: message.username === main.username }">
-                    <span class="message">{{ message}}</span>
-                    <span class="username">{{ message.username }}</span>
+                    <span class="message">{{ message }} </span>  
+                    <!-- <span class="username">{{ message.username }}</span> -->
                   </li>
                 </ul>
               </div>
@@ -188,25 +192,18 @@
                 </div>
 
                 <button class="btn btn-primary">Send</button>
-                <button id="backButton" ng-click="directChat=false">Close</button>
+         
               </form>
-            </div>
-
-
-            <button id="backButton" ng-click="users.selectedUser=false">Back</button>
-            <button id="backButton" ng-click="directChat=true; main.selectUser()">Chat</button>
-
+           
 
         </div>
 
         <input id="searchBar" class="form-control" ng-model="searchText" placeholder="Search by name">
           <ul>
-            <li ng-repeat="user in users.all| filter:searchText" data-id="{{ user._id }}" ng-click="users.selectUser(user)">
+            <li ng-repeat="user in users.all| filter:searchText" data-id="{{ user._id }}" ng-click="users.selectUser(user); main.selectUser(user)">
               <strong> <img id="communityUserImage" src="{{ user.picture }}"> {{user.name}} </strong> 
             </li>
           </ul>
-        </table>
-
       </section>
 
       <section ng-show="showProfile" ng-controller="UsersController as users">
@@ -214,12 +211,12 @@
           <img ng-src="{{ main.currentUser.picture }}" class="profile"><br>
           <div id="userProfileInfoName">{{ main.currentUser.name }}</div>
 
-          <div id="userProfileInfo">Nationality: {{ users.currentUser.nationality }}</div>
-          <div id="userProfileInfo">Travelling in : {{ users.currentUser.region }}</div>
-          <div id="userProfileInfo">From:  {{ users.currentUser.from }}</div>
-          <div id="userProfileInfo">To :{{ users.currentUser.to }}</div>
-          <div id="userProfileInfo">Type :{{ users.currentUser.type }}</div>
-          <div id="userProfileInfo">More :{{ users.currentUser.description }}</div>
+          <div class="hidden" id="userProfileInfo">Nationality: {{ users.currentUser.nationality }}</div>
+          <div class="hidden" id="userProfileInfo">Travelling in : {{ users.currentUser.region }}</div>
+          <div class="hidden" id="userProfileInfo">From:  {{ users.currentUser.from }}</div>
+          <div class="hidden" id="userProfileInfo">To :{{ users.currentUser.to }}</div>
+          <div class="hidden" id="userProfileInfo">Type :{{ users.currentUser.type }}</div>
+          <div class="hidden" id="userProfileInfo">More :{{ users.currentUser.description }}</div>
 
           <h2>Edit</h2>
 
@@ -240,9 +237,7 @@
                 </select>
 
                 <input class="form-control" type="date" ng-model="users.currentUser.from" placeholder="Starting date of travel">
-
                 <input class="form-control" type="date" ng-model="users.currentUser.to" placeholder="Ending date of travel">
-
                 <input class="form-control" type="text" ng-model="users.currentUser.type" placeholder="Type of traveler">
 
                 <textarea class="form-control"  ng-model="users.currentUser.description" placeholder="More about you"></textarea> 
@@ -260,6 +255,8 @@
       <map center="map.mapCenter" markers="map.mapEventMarkers"></map>
       <!-- <button id="eventsButton" class="btn btn-default navbar-btn" ng-click="showEventsForm=true; showLoginForm=false">Create an Adventure</button> -->
     </section>
+
+  <button id="slideButton" class="btn btn-default">Slide Menu</button>
 
   </body>
   </html>
