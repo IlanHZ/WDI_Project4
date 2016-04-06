@@ -4,6 +4,9 @@
   <title>Mappers</title>
 
   <!-- External Modules -->
+
+<!--   <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+
   <script src="/js/vendor/angular/angular.min.js"></script>
   <script src="/js/vendor/angular-jwt/dist/angular-jwt.min.js"></script>
   <script src="/js/vendor/satellizer/satellizer.min.js"></script>
@@ -52,17 +55,18 @@
 
         <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false; showProfile=false; showChatRoom=false">Login</li>
 
-        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false; showUsers=false; communitySection=false; showProfile=false; showChatRoom=false">Adventure</li>
-    
-        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false; showUsers=false; communitySection=false; showProfile=false; showChatRoom=false">Chat</li>
-     
-        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="communitySection=true; showGlobalChat=false; showEventsForm=false; showLoginForm=false; showProfile=false; showChatRoom=false">Community</li>
 
-        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showProfile=true; showLoginForm=false; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false; showChatRoom=false">Profile</li>
-
-        <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showChatRoom=true; showGlobalChat=false; showEventsForm=false; showLoginForm=false; showUsers=false; communitySection=false; showProfile=false">Chat Room</li>
-
-        <li id="navLi">About</li>
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false;   showUsers=false; communitySection=false; showProfile=false; showChatRoom=false">Adventure</li>
+      
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false;  showUsers=false; communitySection=false; showProfile=false; showChatRoom=false">Chat</li>
+      
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="communitySection=true; showGlobalChat=false; showEventsForm=false;   showLoginForm=false; showProfile=false; showChatRoom=false">Community</li>
+  
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showProfile=true; showLoginForm=false; showEventsForm=false;   showGlobalChat=false; showUsers=false; communitySection=false; showChatRoom=false">Profile</li>
+  
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showChatRoom=true; showGlobalChat=false; showEventsForm=false;   showLoginForm=false; showUsers=false; communitySection=false; showProfile=false">Chat Room</li>
+  
+          <li id="navLi">About</li>
 
       </ul>
     </nav>
@@ -205,27 +209,15 @@
 
             <button id="backButton" ng-click="users.selectedUser=false">Back</button>
         </div>
-        <div id="searchSe">
-        <label>Search: <input class="form-control" ng-model="searchText"></label>
-<!--         <table id="searchTextResults">
-          <tr><th>Name</th></tr>
-          <tr ng-repeat="user in users.all| filter:searchText">
-            <td class="form-control" >{{user.name}}</td>
-          </tr> -->
 
+        <input id="searchBar" class="form-control" ng-model="searchText" placeholder="Search by name">
           <ul>
             <li ng-repeat="user in users.all| filter:searchText" data-id="{{ user._id }}" ng-click="users.selectUser(user)">
               <strong> <img id="communityUserImage" src="{{ user.picture }}"> {{user.name}} </strong> 
             </li>
           </ul>
         </table>
-        </div>
 
-<!--         <ul>
-          <li ng-repeat="user in users.all" data-id="{{ user._id }}" ng-click="users.selectUser(user)">
-            <strong> <img id="communityUserImage" src="{{ user.picture }}"> {{user.name}} </strong> 
-          </li>
-        </ul> -->
       </section>
 
       <section ng-show="showProfile" ng-controller="UsersController as users">

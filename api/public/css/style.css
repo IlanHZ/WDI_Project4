@@ -68,6 +68,10 @@ ul {
   color: white;
 }
 
+#searchBar{
+  margin-bottom: 30px !important;
+}
+
 
 #userProfileInfo{
   color: white;
