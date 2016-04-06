@@ -62,7 +62,7 @@
 
           <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false;   showUsers=false; communitySection=false; showProfile=false">Adventure</li>
       
-          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false;  showUsers=false; communitySection=false; showProfile=false">Chat</li>
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false;  showUsers=false; communitySection=false; showProfile=false; main.selectedUserId=null; ">Chat</li>
       
           <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="communitySection=true; showGlobalChat=false; showEventsForm=false;   showLoginForm=false; showProfile=false">Community</li>
   
@@ -80,7 +80,7 @@
       <div class="globalChat" ng-show="showGlobalChat">
         <div id="message-panel">
           <ul>
-            <li ng-repeat="message in main.all track by $index" ng-class="{ me: message.username === main.username }">
+            <li ng-repeat="message in main.messages.global track by $index" ng-class="{ me: message.username === main.username }">
               <span class="message">{{ message }}</span>
               <span class="username">{{ message.username }}</span>
             </li>
@@ -179,7 +179,7 @@
             <!--  Direct   CHAT -->
               <div id="message-panel">
                 <ul id="{{users.selectedUser._id}}">
-                  <li ng-repeat="message in main.all track by $index" ng-class="{ me: message.username === main.username }">
+                  <li ng-repeat="message in main.messages[main.selectedUserId] track by $index" ng-class="{ me: message.username === main.username }">
                     <span class="message">{{ message }} </span>  
                     <!-- <span class="username">{{ message.username }}</span> -->
                   </li>

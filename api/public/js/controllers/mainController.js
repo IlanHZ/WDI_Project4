@@ -50,11 +50,13 @@ function MainController($auth, tokenService, $window, $scope, User) {
 
 
     this.message = "";
-    this.all = [];
+    this.messages = {
+      global: []
+    }
 
     socket.on('message', function(message) {
       $scope.$applyAsync(function() {
-        self.all.push(message);
+        self.messages.global.push(message);
       });
     });
 
@@ -68,8 +70,9 @@ function MainController($auth, tokenService, $window, $scope, User) {
     this.chat = function() {
       // only works if never clicked...
       if(this.selectedUserId) {
+        this.messages[this.selectedUserId] = this.messages[this.selectedUserId] || [];
         socket.emit('messageTo', this.selectedUserId, this.message);
-        self.all.push(this.message);
+        this.messages[this.selectedUserId].push(this.message);
         console.log("messageTo")
       }
       else {
