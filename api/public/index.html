@@ -130,7 +130,9 @@
       </div>
     </div>
 
-    
+
+
+    <!--     EVENTS -->
     <section ng-controller="EventsController as events">
       <div class="eventsForm" ng-show="showEventsForm">
 
@@ -237,7 +239,7 @@
 
         <input id="searchBar" class="form-control" ng-model="searchText" placeholder="Search by name">
           <ul>
-            <li ng-repeat="user in users.all| filter:searchText" data-id="{{ user._id }}" ng-click="users.selectUser(user); main.selectUser(user)">
+            <li id="showAllUser" ng-repeat="user in users.all| filter:searchText" data-id="{{ user._id }}" ng-click="users.selectUser(user); main.selectUser(user)">
               <strong> <img id="communityUserImage" src="{{ user.picture }}"> {{user.name}} </strong> 
             </li>
           </ul>
@@ -286,7 +288,7 @@
       </section>
   </div>
 
-    <i id="slideButton" class="fa fa-arrow-circle-o-down" ng-click="main.toggleContainer()"></i>
+    <i id="slideButton" class="fa fa-arrow-circle-o-up rotate" ng-click="main.toggleContainer()" ></i>
 
 
     <!--   MAP -->

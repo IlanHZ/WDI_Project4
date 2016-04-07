@@ -33,7 +33,6 @@ function MainController($auth, tokenService, $window, $scope, User, $element) {
   // SOCKET
 
     socket.on('connect', function() {
-      console.log("socketId", socket.id, "user", self.currentUser.name);
       socket.emit('userId', self.currentUser._id);
     });
 
@@ -54,7 +53,6 @@ function MainController($auth, tokenService, $window, $scope, User, $element) {
       self.messages[senderId] = self.messages[senderId] || [];
       $scope.$applyAsync(function() {
         self.messages[senderId].push(message);
-        console.log(self.messages[senderId])
       });
     });
 
@@ -86,6 +84,11 @@ function MainController($auth, tokenService, $window, $scope, User, $element) {
     this.toggleContainer = function() {
       this.showContainer = this.showContainer === false ? true: false;
     }
+
+    
+    $(".rotate").click(function(){
+     $(this).toggleClass("down")  ; 
+    })
 
 
 }
