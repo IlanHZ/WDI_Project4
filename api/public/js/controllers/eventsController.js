@@ -8,20 +8,6 @@ function EventsController($resource, tokenService, Location, $scope) {
 
   var userCurrentLatitude;
 
-
-  // get the geolocation from the promise
-  // Location.get().then(function(pos){
-  //   console.log("Current latitude :", pos.coords.latitude);
-  //   console.log("Current longitude :", pos.coords.longitude);
-
-  //   var userCurrentLatitude = pos.coords.latitude
-  //   var userCurrentLongitude = pos.coords.longitude
-  // });
-
-
-  // this.currentUser = tokenService.getUser();
-  // console.log("current user:", this.currentUser.name)
-
   var self = this;
 
   var Event = $resource("http://localhost:3000/events/:id", { id: '@_id' }, { update: {method: 'PUT'}});
@@ -39,7 +25,7 @@ function EventsController($resource, tokenService, Location, $scope) {
   var geocoder = new google.maps.Geocoder();
 
   this.geocode = function() {
-    console.log("GEOCODE!");
+
     var address = [self.newEvent.address, self.newEvent.city, self.newEvent.postcode].join(',');
     geocoder.geocode({ address: address}, function(results){
 
@@ -54,7 +40,6 @@ function EventsController($resource, tokenService, Location, $scope) {
 
     });
   }
-
 
 
   this.selectEvent = function(event) {
@@ -76,7 +61,6 @@ function EventsController($resource, tokenService, Location, $scope) {
   // update
   this.updateEvent = function(event) {
     Event.update(event, function() {
-      console.log(event);
     });
   }
 

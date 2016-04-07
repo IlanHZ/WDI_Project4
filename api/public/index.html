@@ -5,7 +5,7 @@
 
   <!-- External Modules -->
 
-<!--   <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <script src="/js/vendor/angular/angular.min.js"></script>
   <script src="/js/vendor/angular-jwt/dist/angular-jwt.min.js"></script>
@@ -14,7 +14,7 @@
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-resource.js"></script>
 
 <!-- angular animate -->
-<!--   <script src="/js/vendor/angular-animate/angular-animate.min.js"></script> -->
+  <script src="/js/vendor/angular-animate/angular-animate.min.js"></script>
 
   <!-- google map drawing and geometry library -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxM36DxD-TmmCuWMML0UXBVSirOUkF42Q&signed_in=true&libraries=drawing,geometry"></script>
@@ -24,6 +24,8 @@
 
   <!--   bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
   <!-- fonts -->
   <link href='https://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
@@ -54,26 +56,32 @@
   
   <div class="container">
 
-    <nav class="navbar ">
-      <ul class="nav navbar-nav">
+    <button ng-click="main.toggle()">Menu</button>
 
-        <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false; showProfile=false; showAllEvents=false">Login</li>
+    <nav ng-hide="main.show" class="navbar navbarShow" ng-show="navbarShow">
+<!--     <div class="btn-group"> -->
+<!--       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</button> -->
+
+      <ul >
+
+          <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false; showProfile=false; showAllEvents=false"><i class="fa fa-sign-in"></i> Login</li>
+
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showProfile=true; showLoginForm=false; showEventsForm=false;   showGlobalChat=false; showUsers=false; communitySection=false; showAllEvents=false"><i class="fa fa-user"></i> Profile</li>
+
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="communitySection=true; showGlobalChat=false; showEventsForm=false;   showLoginForm=false; showProfile=false; showAllEvents=false"><i class="fa fa-users"></i> Community</li>
+
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false;  showUsers=false; communitySection=false; showProfile=false; main.selectedUserId=null; showAllEvents=false"><i class="fa fa-comment"></i> Global Room</li>
+
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false;   showUsers=false; communitySection=false; showProfile=false; showAllEvents=false"><i class="fa fa-paper-plane"></i> Begin an Adventure</li>
 
 
-          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false;   showUsers=false; communitySection=false; showProfile=false; showAllEvents=false">Begin an Adventure</li>
-      
-          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false;  showUsers=false; communitySection=false; showProfile=false; main.selectedUserId=null; showAllEvents=false">Chat</li>
-      
-          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="communitySection=true; showGlobalChat=false; showEventsForm=false;   showLoginForm=false; showProfile=false; showAllEvents=false">Community</li>
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showAllEvents=true; showProfile=false; showLoginForm=false; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false"><i class="fa fa-search-plus"></i> Find an Adventure</li>
   
-          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showProfile=true; showLoginForm=false; showEventsForm=false;   showGlobalChat=false; showUsers=false; communitySection=false; showAllEvents=false">Profile</li>
-
-          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showAllEvents=true; showProfile=false; showLoginForm=false; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false">Find an Adventure</li>
-  
-          <li id="navLi">About</li>
+          <li id="navLi"><i class="fa fa-globe"></i> About</li>
 
       </ul>
     </nav>
+<!--   </div> -->
     
     <h1>Mappers.</h1>
 
@@ -164,16 +172,16 @@
         <ul>
           <li class="events" ng-repeat="event in events.events | filter:searchText" ng-click="events.selectEvent(event)">
             
-            <div id="eventInfo" >Title: {{ event.title }}</div>
+            <div id="eventInfoTitle" >{{ event.title }}</div>
             <div id="eventInfo" >Location : {{ event.location }}</div>
-            <div id="eventInfo" >organizer:  {{event.organizer }}</div>
-            <div id="eventInfo" >type:{{ event.type }}</div>
+            <div id="eventInfo" >organizer: {{event.organizer }}</div>
+            <div id="eventInfo" >type: {{ event.type }}</div>
             <div id="eventInfo" >Starting date :{{ event.start_date }}</div>
             <div id="eventInfo" >Ending date :{{ event.end_date }}</div>
             <div id="eventInfo" >Time :{{ event.time }}</div>  
             <div id="eventInfo" >Description :{{ event.description }}</div>
-            <div id="eventInfo" >More Informations :{{ event.moreInformations }}</div>    
-            <div id="eventInfo" >City :{{ event.city }}</div>  
+            <div id="eventInfo" >More Informations: {{ event.moreInformations }}</div>    
+            <div id="eventInfo" >City: {{ event.city }}</div>  
             <div id="eventInfo" >Address :{{ event.address }}</div>  
             <div id="eventInfo" >Postcode :{{ event.postcode }}</div>
 
@@ -232,12 +240,12 @@
           <img ng-src="{{ main.currentUser.picture }}" class="profile"><br>
           <div id="userProfileInfoName">{{ main.currentUser.name }}</div>
 
-          <div class="hidden" id="userProfileInfo">Nationality: {{ users.currentUser.nationality }}</div>
-          <div class="hidden" id="userProfileInfo">Travelling in : {{ users.currentUser.region }}</div>
-          <div class="hidden" id="userProfileInfo">From:  {{ users.currentUser.from }}</div>
-          <div class="hidden" id="userProfileInfo">To :{{ users.currentUser.to }}</div>
-          <div class="hidden" id="userProfileInfo">Type :{{ users.currentUser.type }}</div>
-          <div class="hidden" id="userProfileInfo">More :{{ users.currentUser.description }}</div>
+          <div id="userProfileInfo">Nationality: {{ users.currentUser.nationality }}</div>
+          <div id="userProfileInfo">Travelling in : {{ users.currentUser.region }}</div>
+          <div id="userProfileInfo">From:  {{ users.currentUser.from }}</div>
+          <div id="userProfileInfo">To :{{ users.currentUser.to }}</div>
+          <div id="userProfileInfo">Type :{{ users.currentUser.type }}</div>
+          <div id="userProfileInfo">More :{{ users.currentUser.description }}</div>
 
           <h2>Edit</h2>
 

@@ -5,13 +5,9 @@ angular
 MainController.$inject = ['$auth', 'tokenService','$window', '$scope', 'User'];
 function MainController($auth, tokenService, $window, $scope, User) {
 
-
   var self = this;
   
   var socket = $window.io();
-
-  console.log(self.selectedUser)
-
 
   // LOGIN
   this.isLoggedIn = function() {
@@ -35,19 +31,12 @@ function MainController($auth, tokenService, $window, $scope, User) {
   }
 
   // SOCKET
-  // console.log("CURRENT USER ID", this.currentUser._id)
 
     socket.on('connect', function() {
       socket.emit('userId', self.userId);
     });
 
-    // this.userId = $window.localStorage.getItem('userId');
-
-    // id of the current user
-    // this.userId = this.currentUser._id;
-
     this.selectedUserId = null;
-
     
     this.message = "";
     this.messages = {
@@ -63,23 +52,24 @@ function MainController($auth, tokenService, $window, $scope, User) {
     this.selectUser = function(user) {
             
       self.selectedUserId = user._id;
-      console.log("SELECTED USER ID", user._id)
-
     }
 
     this.chat = function() {
-      // only works if never clicked...
       if(this.selectedUserId) {
         this.messages[this.selectedUserId] = this.messages[this.selectedUserId] || [];
         socket.emit('messageTo', this.selectedUserId, this.message);
         this.messages[this.selectedUserId].push(this.message);
-        console.log("messageTo")
       }
       else {
         socket.emit('message', this.message);
-        console.log("message")
       }
       this.message = "";
+    }
+
+    this.show = true;
+
+    this.toggle = function() {
+      this.show = this.show === false ? true: false;
     }
   }
 

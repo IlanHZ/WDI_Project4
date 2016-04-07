@@ -41,8 +41,7 @@ function InitMap(Location, tokenService, User) {
 
       // get the geolocation from the promise/Location-Service, location of the current user
       Location.get().then(function(pos){
-        // console.log("Current latitude :", pos.coords.latitude);
-        // console.log("Current longitude :", pos.coords.longitude);
+
       });
 
 
@@ -68,9 +67,6 @@ function InitMap(Location, tokenService, User) {
           markers.forEach(function(marker, event) {
 
             var latLng = new google.maps.LatLng(marker.lat, marker.lng);
-
-            // console.log("marker.name",marker.organizer)
-            // console.log("marker.moreInformations",marker.moreInformations)
 
             // Create an infowindow for the events markers
             var eventInfoWindow = new google.maps.InfoWindow({
@@ -133,8 +129,6 @@ function InitMap(Location, tokenService, User) {
           map: map,
           icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
         });
-        console.log("Marker coordinate:" + marker.position )
-
 
         // Add circle overlay and bind to marker
         var circle = new google.maps.Circle({
@@ -153,11 +147,10 @@ function InitMap(Location, tokenService, User) {
           // isLocationOnEdge(point:LatLng, poly:Polygon|Polyline, tolerance?:number)
           if (google.maps.geometry.poly.isLocationOnEdge(marker.getPosition(), poly, 3)) {
 
-            console.log("In the radius");
             marker.setMap(map);
 
           } else {
-            console.log("Out of the radius");
+
             marker.setMap(null);
           }
         });
@@ -166,14 +159,13 @@ function InitMap(Location, tokenService, User) {
         usersMarker.forEach(function(marker) {
 
           // isLocationOnEdge(point:LatLng, poly:Polygon|Polyline, tolerance?:number)
-          if (google.maps.geometry.poly.isLocationOnEdge(userMarkers.position, poly, 3)) {
+          if (google.maps.geometry.poly.isLocationOnEdge(userMarkers.getPosition(), poly, 3)) {
 
-            console.log("In the radius");
-            marker.setMap(map);
+            userMarker.setMap(map);
 
           } else {
-            console.log("Out of the radius");
-            marker.setMap(null);
+
+            userMarker.setMap(null);
           }
         });
 
@@ -185,12 +177,10 @@ function InitMap(Location, tokenService, User) {
     // get all the users
     var userMarkers = [];
     this.mapUsers = User.query();
-    console.log("mapUserMarkers", this.mapUsers);
-
 
     this.mapUsers.$promise.then(function(users){
       users.forEach(function(user) {
-        console.log("users", user.name)
+
         var lng = parseFloat(user.lastKnownLocation.lng);
         var lat = parseFloat(user.lastKnownLocation.lat);
         var position = {lat:lat, lng:lng};
@@ -221,7 +211,7 @@ function InitMap(Location, tokenService, User) {
         });
 
         userMarkers.push(marker);
-        console.log(marker);
+
       })
     })
 
@@ -229,7 +219,6 @@ function InitMap(Location, tokenService, User) {
 
     // get the informations on the user from the token (facebook login)    
     this.currentUser = tokenService.getUser();
-    console.log("CurrentUser:", this.currentUser)
 
     // if there is a current user
     if(this.currentUser){
@@ -263,8 +252,6 @@ function InitMap(Location, tokenService, User) {
           };
 
           myCurrentPosition.setPosition(pos);
-
-          // map.setCenter(pos);
 
         }, function() {
 

@@ -1,5 +1,5 @@
 angular
-  .module('mappersApp', ['satellizer', 'angular-jwt','ngResource'])
+  .module('mappersApp', ['satellizer', 'angular-jwt','ngResource', "ngAnimate"])
   .constant('API_URL', 'http://localhost:3000')
   .config(oauthConfig);
 

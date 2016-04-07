@@ -8,21 +8,18 @@ function UsersController($resource, tokenService, User, Location) {
 
 
   this.currentUser = tokenService.getUser();
-  // console.log(this.currentUser)
 
   var self = this;
 
   // show a clicked user
    this.selectUser = function(user) {
      self.selectedUser = User.get({id: user._id});
-     console.log(self.selectedUser)
    };
 
   // CRUD
 
   // GET all the users
   this.all = User.query();
-  console.log("All users", this.all)
 
   // CREATE
   this.createUser = function(){
@@ -34,9 +31,7 @@ function UsersController($resource, tokenService, User, Location) {
   // UPDATE 
   this.updateUser = function(){
     var user = self.currentUser;
-    console.log(user)
     var newUser = User.update({ id: user._id }, user, function(res){
-      console.log("user updated");
     });
   }
 
