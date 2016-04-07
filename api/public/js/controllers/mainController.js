@@ -2,8 +2,8 @@ angular
 .module('mappersApp')
 .controller('MainController', MainController);
 
-MainController.$inject = ['$auth', 'tokenService','$window', '$scope', 'User'];
-function MainController($auth, tokenService, $window, $scope, User) {
+MainController.$inject = ['$auth', 'tokenService','$window', '$scope', 'User', '$element'];
+function MainController($auth, tokenService, $window, $scope, User, $element) {
 
   var self = this;
   
@@ -33,7 +33,8 @@ function MainController($auth, tokenService, $window, $scope, User) {
   // SOCKET
 
     socket.on('connect', function() {
-      socket.emit('userId', self.userId);
+      console.log("socketId", socket.id, "user", self.currentUser.name);
+      socket.emit('userId', self.currentUser._id);
     });
 
     this.selectedUserId = null;
@@ -49,15 +50,23 @@ function MainController($auth, tokenService, $window, $scope, User) {
       });
     });
 
+    socket.on('messageFrom', function(senderId, message) {
+      console.log("messageFrom", senderId, "selectedUser", self.selectedUserId, "currentUserId", self.currentUser._id);
+      self.messages[senderId] = self.messages[senderId] || [];
+      $scope.$applyAsync(function() {
+        self.messages[senderId].push(message);
+        console.log(self.messages[senderId])
+      });
+    });
+
     this.selectUser = function(user) {
-            
       self.selectedUserId = user._id;
     }
 
     this.chat = function() {
       if(this.selectedUserId) {
         this.messages[this.selectedUserId] = this.messages[this.selectedUserId] || [];
-        socket.emit('messageTo', this.selectedUserId, this.message);
+        socket.emit('messageTo', self.currentUser._id, this.selectedUserId, this.message);
         this.messages[this.selectedUserId].push(this.message);
       }
       else {
@@ -79,7 +88,8 @@ function MainController($auth, tokenService, $window, $scope, User) {
       this.showContainer = this.showContainer === false ? true: false;
     }
 
-  }
+
+}
 
 
 

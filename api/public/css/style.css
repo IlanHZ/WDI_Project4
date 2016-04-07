@@ -11,7 +11,13 @@ h1 {
   color:white;
   font-family: 'Fredoka One', cursive;
 
+
   }
+
+  .navbar {
+    margin-bottom:300px;
+  }
+  
 
 h2 {
   margin-top: 10px;
@@ -62,8 +68,10 @@ ul {
   width: 370px;
   padding: 10px;
   font-size: 15px;
+  background: rgba(0,0,0,0.6);
 
 }
+
 
 #search {
   color: white;
@@ -117,6 +125,7 @@ img.profile {
 .nav {
   position: fixed;
   top: 0px;
+
 }
 #navLi {
   color: white;
@@ -261,15 +270,13 @@ button {
 }
 
 .gm-svpc{
-  float: right !important;
-  box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
-  border-radius: 50% !important;
-  width: 40px !important;
-  height: 40px !important;
-  cursor: url("https://maps.gstatic.com/mapfiles/openhand_8_8.cur") 8 8, default;
-  position: absolute;
-  left: 0px;
-  top: 0px;
+
+
+  width: 35px !important;
+  height: 35px !important;
+  background-color: #01C2B6!important;
+  border-radius: 50%!important;
+  border: 3px solid white;
 
 }
 
@@ -332,64 +339,165 @@ button {
 /*---- MEDIA QUERIES ----*/
 
 @media only screen and (max-width: 600px) {
-  .container {
-    padding: 0;
-    position: absolute;
-    width: 100%;
-    border-radius: none;
+
+  #directChatInput{
+   width: 140%; 
   }
 
   #slideButton {
     z-index: 1;
     position: relative;
+    color: #00C5B8;
+    font-size: 56px;
+/*    margin-left: 45%;
+*/    margin-left: 80%;
+    margin-top: 35px;
+    /*float: right;*/
+  }
+
+
+  .container {
+    padding: 35px; 
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: none;
+    top:0;
+  }
+
+  #showOneUser {
+    width: 308px;
+
   }
 
   ul {
     margin: 0;
     padding: 0;
-    }
+
+  }
+
+  .navbar {
+    margin-bottom:300px;
+  }
+  
   li {
-/*    width: 100%;*/
     margin: 0;
   }
-
-  .container {
-    padding: 35px; 
-  }
-
 
   .fa-align-justify:before{
     font-size: 35px;
     margin-left: 2px;
   }
-}
-
-/*.container {
-  padding: 40px;
-  z-index: 1;
-  position: absolute;
-  left: 20%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0,0,0,0.5);
-  width: 450px;
-  height: 600px;
-  overflow: scroll;
-  border-radius: 3px;
-  -webkit-box-shadow: 1px 2px 18px -2px rgba(0, 0, 0, 0.9);
-  -moz-box-shadow: 1px 2px 18px -2px rgba(0, 0, 0, 0.9);
-  box-shadow: 1px 2px 18px 10px rgba(0, 0, 0, 0.9); 
-}*/
-
-/*.ng-scope {
-  background-color: #00C6B8;
 
 }
-*/
 
 .fa-align-justify:before{
   font-size: 55px !important;
+  -webkit-transition: -webkit-transform .8s ease-in-out;
+  transition: transform .8s ease-in-out;
 }
+
+.gm-style-mtc {
+  display: none;
+}
+
+
+
+/*//////////////////// SOCIAL MEDIA BUTTON //////////////////////////////////////*/
+
+#social_button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* footer social icons */
+ul.social-network {
+  list-style: none;
+  display: inline;
+  margin-left:0 !important;
+  padding: 0;
+}
+
+ul.social-network li {
+  display: inline;
+  margin: 0 5px;
+}
+
+.social-network a {
+  border: 1px solid white;
+  background-color: rgba(0,0,0,0.2);
+}
+
+/*////////////// footer social icons //////////////////////////////*/
+.social-network a.icoRss {
+  background-color: #F56505;
+
+}
+.social-network a.icoFacebook:hover {
+  background-color:#3B5998;
+}
+.social-network a.icoTwitter:hover {
+  background-color:#33ccff;
+}
+.social-network a.icoGoogle:hover {
+  background-color:#BD3518;
+}
+.social-network a.icoVimeo:hover {
+  background-color:#0590B8;
+}
+.social-network a.icoLinkedin:hover {
+  background-color:#007bb7;
+}
+.social-network a.icoRss:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,
+.social-network a.icoGoogle:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i {
+  color:#fff;
+}
+a.socialIcon:hover, .socialHoverClass {
+  color:#44BCDD;
+}
+
+.social-circle li a {
+  display:inline-block;
+  position:relative;
+  margin:0 auto 0 auto;
+  -moz-border-radius:50%;
+  -webkit-border-radius:50%;
+  border-radius:50%;
+  text-align:center;
+  width: 50px;
+  height: 50px;
+  font-size:20px;
+
+}
+.social-circle li i {
+  margin:0;
+  line-height:50px;
+  text-align: center;
+  margin-left: 15px;
+}
+
+.social-circle li a:hover i, .triggeredHover {
+  -moz-transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  -ms--transform: rotate(360deg);
+  transform: rotate(360deg);
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.social-circle i {
+  color: #fff;
+  -webkit-transition: all 0.8s;
+  -moz-transition: all 0.8s;
+  -o-transition: all 0.8s;
+  -ms-transition: all 0.8s;
+  transition: all 0.8s;
+}
+
+
+
 
 
 

@@ -50,7 +50,7 @@ function InitMap(Location, tokenService, User) {
 
       var map = new google.maps.Map($element[0], {
         center: scope.center,
-        zoom: 2,
+        zoom: 3,
         mapTypeId: google.maps.MapTypeId.SATELLITE
       });
 

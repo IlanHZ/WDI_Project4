@@ -34,13 +34,12 @@ io.on('connect', function(socket) {
     io.emit('message', message);
   });
 
-  socket.on('messageTo', function(userId, message) {
-    socket.broadcast.to(channels[userId]).emit('message', message);
+  socket.on('messageTo', function(senderId, receiverId, message) {
+    socket.broadcast.to(channels[receiverId]).emit('messageFrom', senderId, message);
   });
 
   socket.on('userId', function(userId) {
     channels[userId] = socket.id;
-
     console.log(channels);
   });
 
