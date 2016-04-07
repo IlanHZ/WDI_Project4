@@ -20,7 +20,6 @@ function EventsController($resource, tokenService, Location, $scope) {
 
 
   // this.currentUser = tokenService.getUser();
-  
   // console.log("current user:", this.currentUser.name)
 
   var self = this;

@@ -160,8 +160,9 @@
 
       <div class="showAllEvents" ng-show="showAllEvents">
         <!-- show all events -->
+        <input id="searchBar" class="form-control" ng-model="searchText" placeholder="Search by title, city or organizer name">
         <ul>
-          <li class="events" ng-repeat="event in events.events" ng-click="events.selectEvent(event)">
+          <li class="events" ng-repeat="event in events.events | filter:searchText" ng-click="events.selectEvent(event)">
             
             <div id="eventInfo" >Title: {{ event.title }}</div>
             <div id="eventInfo" >Location : {{ event.location }}</div>
