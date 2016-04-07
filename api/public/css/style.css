@@ -110,8 +110,16 @@ img.profile {
   border-radius: 3px;
   -webkit-box-shadow: 1px 2px 18px -2px rgba(0, 0, 0, 0.9);
   -moz-box-shadow: 1px 2px 18px -2px rgba(0, 0, 0, 0.9);
-  box-shadow: 1px 2px 18px 10px rgba(0, 0, 0, 0.9);   
+  box-shadow: 1px 2px 18px 10px rgba(0, 0, 0, 0.9);
+  -webkit-transition: 0.3s all linear;
+  transition:all linear 0.3s;
+  opacity:1;   
 }
+
+.container.ng-hide {
+  opacity: 0;
+}
+
 
 .fa {
   float: left;
@@ -120,10 +128,16 @@ img.profile {
 .infoWindow {
   background-color: red;
 }
-.nav {
-  position: fixed;
-  top: 0px;
+.navbar {
+/*  position: fixed;
+  top: 0px;*/
+  -webkit-transition: 0.5s all linear;
+  transition:all linear 0.5s;
+  opacity:1;
+}
 
+.navbar.ng-hide {
+  opacity: 0;
 }
 #navLi {
   color: white;
@@ -504,15 +518,6 @@ a.socialIcon:hover, .socialHoverClass {
   transform:rotate(540deg);
 }
 
-.container {
-  -webkit-transition: 0.3s all linear;
-   transition:all linear 0.3s;
-   opacity:1;
- }
-
-.container.ng-hide {
-  opacity: 0;
-}
 
 
 
