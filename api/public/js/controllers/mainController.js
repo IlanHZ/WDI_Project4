@@ -51,7 +51,6 @@ function MainController($auth, tokenService, $window, $scope, User, $element) {
     });
 
     socket.on('messageFrom', function(senderId, message) {
-      console.log("messageFrom", senderId, "selectedUser", self.selectedUserId, "currentUserId", self.currentUser._id);
       self.messages[senderId] = self.messages[senderId] || [];
       $scope.$applyAsync(function() {
         self.messages[senderId].push(message);

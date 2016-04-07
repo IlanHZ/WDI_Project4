@@ -105,7 +105,7 @@ img.profile {
   position: absolute;
   top: 75px;
   left: 0px;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.6);
   width: 450px;
   height: 600px;
   overflow: scroll;
@@ -323,11 +323,11 @@ button {
   font-style: italic;
 }
 
-#message-panel ul li.me {
+/*#message-panel ul li.me {
   text-align: right;
-  background-color: rgba(0, 221, 0, 0.6) !important;
+  background-color: rgba(0, 221, 0, 0.6);
 }
-
+*/
 .form-inline .form-group {
   width: 80%;
 }
@@ -341,7 +341,7 @@ button {
 @media only screen and (max-width: 600px) {
 
   #directChatInput{
-   width: 140%; 
+   width: 125%;
   }
 
   #slideButton {
