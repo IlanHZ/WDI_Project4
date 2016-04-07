@@ -53,10 +53,15 @@
 
 </head>
 <body ng-controller="MainController as main">
-  
-  <div class="container">
 
-    <button ng-click="main.toggle()">Menu</button>
+<!--   <button id="slideButton" class="btn btn-default" ng-click="main.toggleContainer()">Slide Menu</button> -->
+
+
+  <div class="container" ng-hide="main.showContainer">
+
+    <h1><i class="fa fa-align-justify" ng-click="main.toggle()"></i>Mappers.</h1>
+
+ <!--    <button ><i class="fa fa-align-justify" ng-click="main.toggle()"></i></button> -->
 
     <nav ng-hide="main.show" class="navbar navbarShow" ng-show="navbarShow">
 <!--     <div class="btn-group"> -->
@@ -64,26 +69,26 @@
 
       <ul >
 
-          <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false; showProfile=false; showAllEvents=false"><i class="fa fa-sign-in"></i> Login</li>
+          <li id="navLi" ng-click="showLoginForm=true; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false; showProfile=false; showAllEvents=false; main.toggle()"><i class="fa fa-sign-in"></i> Login</li>
 
-          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showProfile=true; showLoginForm=false; showEventsForm=false;   showGlobalChat=false; showUsers=false; communitySection=false; showAllEvents=false"><i class="fa fa-user"></i> Profile</li>
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showProfile=true; showLoginForm=false; showEventsForm=false;   showGlobalChat=false; showUsers=false; communitySection=false; showAllEvents=false; main.toggle()"><i class="fa fa-user"></i> Profile</li>
 
-          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="communitySection=true; showGlobalChat=false; showEventsForm=false;   showLoginForm=false; showProfile=false; showAllEvents=false"><i class="fa fa-users"></i> Community</li>
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="communitySection=true; showGlobalChat=false; showEventsForm=false;   showLoginForm=false; showProfile=false; showAllEvents=false; main.toggle()"><i class="fa fa-users"></i> Community</li>
 
-          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false;  showUsers=false; communitySection=false; showProfile=false; main.selectedUserId=null; showAllEvents=false"><i class="fa fa-comment"></i> Global Room</li>
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showGlobalChat=true; showEventsForm=false; showLoginForm=false;  showUsers=false; communitySection=false; showProfile=false; main.selectedUserId=null; showAllEvents=false; main.toggle()"><i class="fa fa-comment"></i> Global Room</li>
 
-          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false;   showUsers=false; communitySection=false; showProfile=false; showAllEvents=false"><i class="fa fa-paper-plane"></i> Begin an Adventure</li>
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showEventsForm=true; showLoginForm=false;  showGlobalChat=false;   showUsers=false; communitySection=false; showProfile=false; showAllEvents=false; main.toggle()"><i class="fa fa-paper-plane"></i> Begin an Adventure</li>
 
 
-          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showAllEvents=true; showProfile=false; showLoginForm=false; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false"><i class="fa fa-search-plus"></i> Find an Adventure</li>
+          <li ng-show="!!main.isLoggedIn()" id="navLi" ng-click="showAllEvents=true; showProfile=false; showLoginForm=false; showEventsForm=false; showGlobalChat=false; showUsers=false; communitySection=false; main.toggle()"><i class="fa fa-search-plus"></i> Find an Adventure</li>
   
           <li id="navLi"><i class="fa fa-globe"></i> About</li>
 
       </ul>
     </nav>
-<!--   </div> -->
+
     
-    <h1>Mappers.</h1>
+
 
       <!--     CHAT -->
 
@@ -281,11 +286,11 @@
 
     <!--   MAP -->
     <section ng-controller="MapController as map">
+      <button id="slideButton" class="btn btn-default" ng-click="main.toggleContainer()">Slide Menu</button>
       <map center="map.mapCenter" markers="map.mapEventMarkers"></map>
       <!-- <button id="eventsButton" class="btn btn-default navbar-btn" ng-click="showEventsForm=true; showLoginForm=false">Create an Adventure</button> -->
     </section>
 
-  <button id="slideButton" class="btn btn-default">Slide Menu</button>
 
   </body>
   </html>

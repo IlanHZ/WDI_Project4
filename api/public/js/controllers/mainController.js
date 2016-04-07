@@ -67,10 +67,18 @@ function MainController($auth, tokenService, $window, $scope, User) {
     }
 
     this.show = true;
+    
 
     this.toggle = function() {
       this.show = this.show === false ? true: false;
     }
+
+    this.showContainer = true;
+
+    this.toggleContainer = function() {
+      this.showContainer = this.showContainer === false ? true: false;
+    }
+
   }
 
 
