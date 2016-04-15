@@ -1,6 +1,6 @@
 module.exports = {
   port: process.env.PORT || 3000,
-  databaseUrl: 'mongodb://localhost/mappers',
+  databaseUrl: process.env.MONGOLAB_URI, 
   secret: 'thisIsMappers',
-  appUrl: 'http://localhost:3000'
+  appUrl: 'https://mappersapp.herokuapp.com/'
 }

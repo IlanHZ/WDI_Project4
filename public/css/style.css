@@ -486,7 +486,7 @@ a.socialIcon:hover, .socialHoverClass {
   margin-left: 15px;
 }
 
-.social-circle li a:hover i, .triggeredHover {
+ a:hover i, .triggeredHover {
   -moz-transform: rotate(360deg);
   -webkit-transform: rotate(360deg);
   -ms--transform: rotate(360deg);
