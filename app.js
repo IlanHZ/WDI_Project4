@@ -15,7 +15,9 @@ var server  = require('http').createServer(app);
 
 var io      = require('socket.io')(server);
 
-mongoose.connect(config.databaseUrl);
+mongoose.connect(config.databaseUrl, function(){
+  console.log("connected!")
+});
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
