@@ -2,6 +2,8 @@
 
 #Mappers
 
+A travel app developped in a MEAN Stack, Google Maps API and Web Sockets.
+
 ![](http://imgur.com/cYxltpU.png)
 https://mappersapp.herokuapp.com/
 
